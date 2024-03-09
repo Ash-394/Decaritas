@@ -5,6 +5,7 @@ contract Funding {
     struct Campaign {
         address owner;
         string title;
+        uint256 verificationNum;
         string description;
         uint256 target;
         uint256 deadline;
@@ -18,13 +19,17 @@ contract Funding {
 
     uint256 public numberOfCampaigns = 0;
 
-    function createCampaign(address _owner, string memory _title, string memory _description, uint256 _target, uint256 _deadline, string memory _image) public returns (uint256) {
+    function createCampaign(address _owner, string memory _title, uint256 _verificationNum, string memory _description, uint256 _target, uint256 _deadline, string memory _image) public returns (uint256) {
+        for (uint256 i = 0; i < numberOfCampaigns; i++) {
+        require(campaigns[i].verificationNum != _verificationNum, "False campaign alert");
+        }
         Campaign storage campaign = campaigns[numberOfCampaigns];
 
-        require(campaign.deadline < block.timestamp, "The deadline should be a date in the future.");
+        require(_deadline > block.timestamp, "The deadline should be a date in the future.");
 
         campaign.owner = _owner;
         campaign.title = _title;
+        campaign.verificationNum = _verificationNum;
         campaign.description = _description;
         campaign.target = _target;
         campaign.deadline = _deadline;
@@ -35,6 +40,7 @@ contract Funding {
 
         return numberOfCampaigns - 1;
     }
+
     function donateToCampaign(uint256 _id) public payable {
         uint256 amount = msg.value;
 
@@ -43,11 +49,20 @@ contract Funding {
         campaign.donators.push(msg.sender);
         campaign.donations.push(amount);
 
-        (bool sent,) = payable(campaign.owner).call{value: amount}("");
+        campaign.amountCollected += amount; // Updating amount collected
+    }
 
-        if(sent) {
-            campaign.amountCollected = campaign.amountCollected + amount;
-        }
+    function withdrawFunds(uint256 _id) public payable{
+        Campaign storage campaign = campaigns[_id];
+
+        require(msg.sender == campaign.owner, "Only the campaign owner can withdraw funds");
+        require(block.timestamp > campaign.deadline, "Withdrawal is only allowed after the deadline");
+
+        uint256 amountToWithdraw = campaign.amountCollected;
+        campaign.amountCollected = 0; // Reset the amount collected
+
+        // Transfer funds to the campaign owner
+        payable(msg.sender).transfer(amountToWithdraw);
     }
 
     function getDonators(uint256 _id) view public returns (address[] memory, uint256[] memory) {
@@ -67,5 +82,3 @@ contract Funding {
     }
 }
 
-//0x441f96620E8E61221460b4A6C168Da8315d599E1
-//new 0xF1E5C4CB33dD951d202F27405E3471cCAe837052

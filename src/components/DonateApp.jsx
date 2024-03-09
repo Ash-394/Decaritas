@@ -13,7 +13,7 @@ const FundingApp = () => {
     const signer = await provider.getSigner();
     console.log("contract");
     // Deployed contract address
-    const contractAddress = "0xF1E5C4CB33dD951d202F27405E3471cCAe837052"; // Replace with your contract address
+    const contractAddress = "0xC72Ff88e458AAD7DBa9b145fe4AbBc5f6818c945";
 
     // Instantiate the contract
     const fundingContract = new ethers.Contract(

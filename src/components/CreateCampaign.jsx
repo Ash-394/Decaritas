@@ -5,6 +5,8 @@ import FormField from './form';
 const CreateCampaign = ({ contract }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [ownerAddress, setOwnerAddress] = useState(''); 
+  const [verificationNum, setVerificationNum] = useState(''); 
   const [target, setTarget] = useState('');
   const [deadline, setDeadline] = useState('');
   const [image, setImage] = useState('');
@@ -17,8 +19,9 @@ const CreateCampaign = ({ contract }) => {
       const parsedDeadline = Math.floor(new Date(deadline).getTime() / 1000); // Convert deadline to UNIX timestamp
 
       const tx = await contract.createCampaign(
-        '0x9B3f5942297F724F62DE8e2efF8C2430E159C62C', // Replace with owner address
+        ownerAddress,
         title,
+        verificationNum,
         description,
         parsedTarget,
         parsedDeadline,
@@ -33,7 +36,10 @@ const CreateCampaign = ({ contract }) => {
       setTarget('');
       setDeadline('');
       setImage('');
+      setOwnerAddress('');
+      setVerificationNum('');
       setErrorMessage('');
+      setShowModal(false); 
     } catch (error) {
       console.error('Error creating campaign:', error.message);
       setErrorMessage(error.message);
@@ -54,11 +60,25 @@ const CreateCampaign = ({ contract }) => {
           <div className="bg-white p-8 rounded-lg z-10 w-full max-w-md">
             <h2 className="flex justify-center items-center text-2xl font-bold mb-4">Create New Campaign</h2>
             <FormField
+              labelName="Owner Address:"
+              placeholder="Enter owner address"
+              inputType="text"
+              value={ownerAddress}
+              handleChange={(e) => setOwnerAddress(e.target.value)}
+            />
+            <FormField
               labelName="Title:"
               placeholder="Enter title"
               inputType="text"
               value={title}
               handleChange={(e) => setTitle(e.target.value)}
+            />
+            <FormField
+              labelName="Verification Number:"
+              placeholder="Enter verification number"
+              inputType="number"
+              value={verificationNum}
+              handleChange={(e) => setVerificationNum(e.target.value)}
             />
             <FormField
               labelName="Description:"
