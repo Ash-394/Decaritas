@@ -20,6 +20,8 @@ contract Funding {
     uint256 public numberOfCampaigns = 0;
 
     function createCampaign(address _owner, string memory _title, uint256 _verificationNum, string memory _description, uint256 _target, uint256 _deadline, string memory _image) public returns (uint256) {
+        require(msg.sender == _owner, "Only the owner can create the campaign");
+
         for (uint256 i = 0; i < numberOfCampaigns; i++) {
         require(campaigns[i].verificationNum != _verificationNum, "False campaign alert");
         }
@@ -42,10 +44,14 @@ contract Funding {
     }
 
     function donateToCampaign(uint256 _id) public payable {
+        require(msg.value > 0, "Donation amount should be greater than zero");
+        
+
         uint256 amount = msg.value;
-
+        
         Campaign storage campaign = campaigns[_id];
-
+        require(campaign.deadline > block.timestamp, "Donation is not allowed after the deadline");
+        require(campaign.amountCollected < campaign.target, "Target already achieved");
         campaign.donators.push(msg.sender);
         campaign.donations.push(amount);
 
@@ -81,4 +87,3 @@ contract Funding {
         return allCampaigns;
     }
 }
-
