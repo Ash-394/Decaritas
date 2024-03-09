@@ -37,6 +37,7 @@ const DisplayCampaigns = ({ contract }) => {
       await contract.donateToCampaign(campaignId, overrides);
 
     } catch (error) {
+      alert("donation not allowed")
       console.error('Error donating to campaign:', error);
     }
   }
@@ -48,6 +49,7 @@ const DisplayCampaigns = ({ contract }) => {
       await transaction.wait();
       console.log('Withdrawal successful');
     } catch (error) {
+      alert("unauthorised access");
       console.error('Error withdrawing funds:', error);
     }
   }
