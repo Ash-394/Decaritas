@@ -31,15 +31,13 @@ const DisplayCampaigns = ({ contract }) => {
   }
   const donateToCampaign = async (campaignId, value) => {
     try {
-      //const value = ethers.parseEther('0.001'); // Example: donating 1 Ether
       const overrides = {
         value: ethers.parseEther(value),
       };
       await contract.donateToCampaign(campaignId, overrides);
-      alert('Donation successful');
-      // Optionally, you can fetch campaigns again after donation to update the UI
       
     } catch (error) {
+      alert('Donation not allowed');
       console.error('Error donating to campaign:', error);
     }
   };
@@ -72,7 +70,7 @@ const DisplayCampaigns = ({ contract }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-scroll scrollbar-none">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 scrollbar-none">
       {campaigns.map((campaign, index) => (
         <div key={index} className="bg-white shadow-md rounded-lg p-4">
 
