@@ -1,4 +1,24 @@
-# Getting Started with Create React App
+## The problem DeCaritas solves
+### THEME: Fintech
+### PROBLEM STATEMENT:
+- Issue: Lack of transparency in charitable donations breeds inefficiency and distrust.
+- Problem: Traditional systems lack accountability, hindering donor ability to track contributions' impact.
+- Consequence: Opacity undermines philanthropic effectiveness, erodes donor confidence, and limits charitable initiatives' impact.
+## PROPOSED SOLUTION:
+A blockchain-based donation traceability framework, de-caritas, is proposed to enable all involved parties to trace the progress of charity donations from the moment they are given by donors to the moment they reach the intended recipients.
+
+1. Platform: Built on Ethereum using Polygon Network for efficiency.
+2. Architecture: Two key subsystems - transaction management and user authentication.
+3. Components: Smart contracts for donations and transparency, decentralized database for records, consensus mechanism for block verification.
+4. Parties involved: Donors, charitable organizations, and services.
+## OBJECTIVES:
+- Transparency: Every donation step recorded, enhancing donor confidence and ensuring transparency.
+- Real-time Traceability: Blockchain records progress from donor to beneficiary, accessible to all involved parties.
+- Trust and Accountability: Reinforces principles of transparency and accountability in philanthropy.
+- Future Vision: de-caritas aims for a charitable landscape based on real-time traceability and trust, promising a brighter and more accountable future for charitable giving.
+### Challenges we ran into
+During the development of the project, one of the significant challenges encountered was the integration of blockchain with existing systems. Specifically, we faced obstacles in showcasing transactions conducted by campaign owners due to the lack of integration with blockchain in most systems. This posed a significant hurdle in achieving seamless transparency and traceability within the donation process.
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -27,44 +47,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
