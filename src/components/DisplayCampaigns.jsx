@@ -31,17 +31,18 @@ const DisplayCampaigns = ({ contract }) => {
   }
   const donateToCampaign = async (campaignId, value) => {
     try {
+      //const value = ethers.parseEther('0.001'); // Example: donating 1 Ether
       const overrides = {
         value: ethers.parseEther(value),
       };
       await contract.donateToCampaign(campaignId, overrides);
-
+      alert('Donation successful');
+      // Optionally, you can fetch campaigns again after donation to update the UI
+      
     } catch (error) {
-      alert("donation not allowed")
       console.error('Error donating to campaign:', error);
     }
-  }
-
+  };
 
   const handleWithdraw = async (campaignId) => {
     try {
