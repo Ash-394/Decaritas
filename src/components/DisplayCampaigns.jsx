@@ -116,6 +116,16 @@ const DisplayCampaigns = ({ contract }) => {
             <img src={proofImages[index]} alt="Proof" className="max-w-auto h-[200px] mt-4" />
           )}
 
+        <div className="flex items-center m-2">
+            <label className="mr-2">Amount(ETH):</label>
+            <input
+              className="border border-gray-300 rounded px-2 py-1 mr-2"
+              value={donationValues[index]}
+              onChange={(e) => handleDonationChange(index, e.target.value)}
+            />
+
+          </div>
+
           {/* Buttons for donating and withdrawing */}
           <div className='mt-3 mb-3 flex items-center justify-evenly'>
             <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => donateToCampaign(index, donationValues[index])}>DONATE</button>
