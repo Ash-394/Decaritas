@@ -37,7 +37,7 @@ const Homepage = () => {
       {showMore ? (
         <div className="mt-16 flex flex-col items-center ">
           <h2 className="text-2xl font-bold text-gray-900 mb-4 font-monojustify-center">About de-caritas</h2>
-          <p className="ml-2 mr-2 text-lg font-mono text-gray-800">
+          <p className="ml-2 mr-2 text-lg font-mono text-gray-300">
             de-caritas is a platform that leverages blockchain technology to ensure transparency and traceability in the donation process. With de-caritas, donors can track their donations in real-time, ensuring that their contributions reach the intended beneficiaries efficiently and securely.
           </p>
         </div>
