@@ -22,7 +22,7 @@ const UploadAndDisplayImage = () => {
 
       <br />
       <br />
-      
+
       <input
         type="file"
         name="myImage"

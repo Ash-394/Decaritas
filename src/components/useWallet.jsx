@@ -9,11 +9,11 @@ const useWallet = () => {
       // Check if MetaMask is installed
       if (typeof window.ethereum !== 'undefined') {
         // Connect to the Ethereum network
-        const  provider = new ethers.BrowserProvider(window.ethereum);
-        const  signer = await provider.getSigner();
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
         setProvider(provider);
         setSigner(signer);
- 
+
       } else {
         throw new Error('MetaMask is not installed.');
       }

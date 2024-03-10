@@ -5,8 +5,8 @@ import FormField from './form';
 const CreateCampaign = ({ contract }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [ownerAddress, setOwnerAddress] = useState(''); 
-  const [verificationNum, setVerificationNum] = useState(''); 
+  const [ownerAddress, setOwnerAddress] = useState('');
+  const [verificationNum, setVerificationNum] = useState('');
   const [target, setTarget] = useState('');
   const [deadline, setDeadline] = useState('');
   const [image, setImage] = useState('');
@@ -39,7 +39,7 @@ const CreateCampaign = ({ contract }) => {
       setOwnerAddress('');
       setVerificationNum('');
       setErrorMessage('');
-      setShowModal(false); 
+      setShowModal(false);
     } catch (error) {
       alert(error.message);
       console.error('Error creating campaign:', error.message);
