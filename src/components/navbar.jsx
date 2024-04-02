@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './Homepage';
 import useWallet from './useWallet';
 import FundingApp from './DonateApp';
+import CampaignApprovalApp from './Verifier';
 
 const Nav = () => {
   let Links = [
@@ -54,6 +55,8 @@ const Nav = () => {
         <Routes>
           <Route path="/" exact element={<Homepage />} />
           <Route path="/donate" exact element={<FundingApp />} />
+          <Route path="/verifier" exact element={<CampaignApprovalApp />} />
+          
 
         </Routes>
       </Router>
