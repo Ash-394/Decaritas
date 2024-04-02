@@ -12,6 +12,7 @@ const Nav = () => {
   let Links = [
     { name: "HOME", link: "/" },
     { name: "DONATE", link: "/donate" },
+    { name: "VERIFIER", link: "/verifier" },
     { name: "profile", link: "/profile" },
     
 

@@ -12,22 +12,22 @@ function CampaignApprovalApp() {
 
   useEffect(() => {
     // Load Ethereum provider and signer
+    
     async function loadBlockchainData() {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await window.ethereum.enable(); // Request user permission to access accounts
-      setProvider(provider);
+      const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    console.log("contract");
+    // Deployed contract address
+    const contractAddress = "0x1d83eAb5E9Cc764ED9c25615630C72E5287522C2";
 
-      const signer = provider.getSigner();
-      setSigner(signer);
+    // Instantiate the contract
+    const verifyingContract = new ethers.Contract(
+      contractAddress,
+      VerifierContract.abi,
+      signer
+    );
 
-      const networkId = await provider.getNetwork().then(network => network.chainId);
-      const deployedNetwork = VerifierContract.networks[networkId];
-      const contract = new ethers.Contract(
-        deployedNetwork.address,
-        VerifierContract.abi,
-        signer
-      );
-      setContract(contract);
+    setContract(verifyingContract);
     }
 
     loadBlockchainData();
