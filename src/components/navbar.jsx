@@ -6,6 +6,8 @@ import FundingApp from './DonateApp';
 import OrganizationPage from './Organisation';
 import Profile from './profile';
 
+import CampaignApprovalApp from './Verifier';
+
 const Nav = () => {
   let Links = [
     { name: "HOME", link: "/" },
@@ -58,6 +60,7 @@ const Nav = () => {
         <Routes>
           <Route path="/" exact element={<Homepage />} />
           <Route path="/donate" exact element={<FundingApp />} />
+          <Route path="/verifier" exact element={<CampaignApprovalApp />} />
           <Route path="/profile" exact element={<Profile  />} />
 
         </Routes>

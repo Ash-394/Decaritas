@@ -1,36 +1,33 @@
 // Import necessary libraries
 import React, { useState, useEffect } from 'react';
-import Web3 from 'web3';
-import VerifierContract from './contracts/Verifier.json'; // Assuming you have compiled and deployed the contract
+import { ethers } from 'ethers';
+import VerifierContract from './verifier.json'; // Assuming you have compiled and deployed the contract
 
 // Define the component
 function CampaignApprovalApp() {
-  const [web3, setWeb3] = useState(null);
-  const [accounts, setAccounts] = useState([]);
+  const [provider, setProvider] = useState(null);
+  const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
   const [pendingApprovals, setPendingApprovals] = useState([]);
 
   useEffect(() => {
-    // Load Web3 and set up connection to blockchain
+    // Load Ethereum provider and signer
     async function loadBlockchainData() {
-      if (window.ethereum) {
-        const web3 = new Web3(window.ethereum);
-        await window.ethereum.enable(); // Request user permission to access accounts
-        setWeb3(web3);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await window.ethereum.enable(); // Request user permission to access accounts
+      setProvider(provider);
 
-        const accounts = await web3.eth.getAccounts();
-        setAccounts(accounts);
+      const signer = provider.getSigner();
+      setSigner(signer);
 
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = VerifierContract.networks[networkId];
-        const contract = new web3.eth.Contract(
-          VerifierContract.abi,
-          deployedNetwork && deployedNetwork.address,
-        );
-        setContract(contract);
-      } else {
-        console.log('Web3 not found.');
-      }
+      const networkId = await provider.getNetwork().then(network => network.chainId);
+      const deployedNetwork = VerifierContract.networks[networkId];
+      const contract = new ethers.Contract(
+        deployedNetwork.address,
+        VerifierContract.abi,
+        signer
+      );
+      setContract(contract);
     }
 
     loadBlockchainData();
@@ -40,7 +37,7 @@ function CampaignApprovalApp() {
     // Fetch pending approvals from the contract
     async function fetchPendingApprovals() {
       if (contract) {
-        const pendingApprovals = await contract.methods.getPendingApprovals().call();
+        const pendingApprovals = await contract.getPendingApprovals();
         setPendingApprovals(pendingApprovals);
       }
     }
@@ -51,9 +48,9 @@ function CampaignApprovalApp() {
   // Handle campaign approval
   const approveCampaign = async (index) => {
     try {
-      await contract.methods.approveCampaign(index).send({ from: accounts[0] });
+      await contract.approveCampaign(index);
       // Refresh pending approvals after approval
-      fetchPendingApprovals();
+      contract.getPendingApprovals();
     } catch (error) {
       console.error('Error approving campaign:', error);
     }
