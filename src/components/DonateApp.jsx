@@ -1,7 +1,7 @@
-import DonateContract from "./contract.json"; // Import the ABI of your contract
+import DonateContract from "./contract.json"; 
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import DisplayCampaigns from "./DisplayCampaigns";
+import CampaignsForUser from "./CampaignsForUser";
 import CreateCampaign from "./CreateCampaign";
 
 const FundingApp = () => {
@@ -490,7 +490,7 @@ const FundingApp = () => {
 
         <CreateCampaign contract={contract} />
 
-        <DisplayCampaigns contract={contract} />
+        <CampaignsForUser contract={contract} />
       </div>
 
     </div>

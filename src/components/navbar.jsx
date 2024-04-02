@@ -3,11 +3,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Homepage from './Homepage';
 import useWallet from './useWallet';
 import FundingApp from './DonateApp';
+import OrganizationPage from './Organisation';
+import Profile from './profile';
 
 const Nav = () => {
   let Links = [
     { name: "HOME", link: "/" },
     { name: "DONATE", link: "/donate" },
+    { name: "profile", link: "/profile" },
+    
 
   ];
   let [open, setOpen] = useState(false);
@@ -54,6 +58,7 @@ const Nav = () => {
         <Routes>
           <Route path="/" exact element={<Homepage />} />
           <Route path="/donate" exact element={<FundingApp />} />
+          <Route path="/profile" exact element={<Profile  />} />
 
         </Routes>
       </Router>

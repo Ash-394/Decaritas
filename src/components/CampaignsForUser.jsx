@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import CampaignCard from './CampaignCard';
 
-const DisplayCampaigns = ({ contract }) => {
+const CampaignsForUser = ({ contract }) => {
   const [campaigns, setCampaigns] = useState([]);
-  const [value, setValue] = useState('0');
+  //const [value, setValue] = useState('0');
   const [donationValues, setDonationValues] = useState({});
-  const [proofImages, setProofImages] = useState({}); // State to store proof images for each campaign
+  //const [proofImages, setProofImages] = useState({}); // State to store proof images for each campaign
 
   useEffect(() => {
     const fetchCampaigns = async () => {
@@ -24,6 +24,7 @@ const DisplayCampaigns = ({ contract }) => {
     fetchCampaigns();
   }, [contract]); // Execute useEffect whenever contract changes
 
+  /*
   const handleProofImageUpload = (campaignId, event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -40,6 +41,7 @@ const DisplayCampaigns = ({ contract }) => {
       reader.readAsDataURL(file);
     }
   };
+  */
 
 
   const handleDonationChange = (index, value) => {
@@ -73,21 +75,6 @@ const DisplayCampaigns = ({ contract }) => {
     }
   }
 
-  //formating date to normal format
-  const formatTimestamp = (timestamp) => {
-    const milliseconds = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
-    const dateObject = new Date(milliseconds);
-
-    // Use Date methods to get the individual components of the date
-    const year = dateObject.getFullYear();
-    const month = dateObject.getMonth() + 1; // Month starts from 0, so add 1
-    const date = dateObject.getDate();
-    const hours = dateObject.getHours();
-    const minutes = dateObject.getMinutes();
-    const seconds = dateObject.getSeconds();
-    const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${date < 10 ? '0' + date : date} ${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-    return formattedDate;
-  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 overflow-y-scroll mb-20" >
 
@@ -120,7 +107,7 @@ const DisplayCampaigns = ({ contract }) => {
   );
 };
 
-export default DisplayCampaigns;
+export default CampaignsForUser;
 
 /*
 {window.ethereum && window.ethereum.selectedAddress === campaign.owner.toLowerCase() && (
