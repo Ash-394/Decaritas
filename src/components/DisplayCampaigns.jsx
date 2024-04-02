@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+import CampaignCard from './CampaignCard';
 
 const DisplayCampaigns = ({ contract }) => {
   const [campaigns, setCampaigns] = useState([]);
@@ -92,38 +93,10 @@ const DisplayCampaigns = ({ contract }) => {
 
       {campaigns.map((campaign, index) => (
         <div key={index} className="bg-white shadow-md rounded-lg p-4">
-
-          <h3 className="text-lg font-semibold">{campaign.title}</h3>
-          <p className="text-sm text-gray-600 mb-2"> {campaign.description}</p>
-          <p className="text-sm text-gray-500 mb-2">{campaign.owner}</p>
+          <div> <CampaignCard campaign = {campaign}></CampaignCard> </div>
           
-          <img src={campaign.image} alt="Campaign" className="max-w-auto h-[200px] mb-4" />
-
-          <p className="text-sm text-gray-500 mb-2">Amount collected : {ethers.formatUnits(campaign.amountCollected)} </p>
-          <p className="text-sm text-gray-500 mb-2">Target : {ethers.formatUnits(campaign.target)} </p>
-          <p className="text-sm text-gray-500 mb-2"> Deadline: {formatTimestamp(campaign.deadline.toString())} </p>
-
-          {window.ethereum && window.ethereum.selectedAddress === campaign.owner.toLowerCase() && (
-            <div>
-              <label htmlFor={`proofImage${index}`} className="block text-sm font-medium text-gray-700">
-                Upload Proof
-              </label>
-              <input
-                type="file"
-                id={`proofImage${index}`}
-                name={`proofImage${index}`}
-                accept="image/*"
-                onChange={(e) => handleProofImageUpload(index, e, campaign)}
-                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
-          )}
-
-          {/* Display uploaded proof image */}
-          {proofImages[index] && (
-            <img src={proofImages[index]} alt="Proof" className="max-w-auto h-[200px] mt-4" />
-          )}
-
+          
+          
           <div className="flex items-center m-2">
             <label className="mr-2">Amount(ETH):</label>
             <input
@@ -148,3 +121,26 @@ const DisplayCampaigns = ({ contract }) => {
 };
 
 export default DisplayCampaigns;
+
+/*
+{window.ethereum && window.ethereum.selectedAddress === campaign.owner.toLowerCase() && (
+            <div>
+              <label htmlFor={`proofImage${index}`} className="block text-sm font-medium text-gray-700">
+                Upload Proof
+              </label>
+              <input
+                type="file"
+                id={`proofImage${index}`}
+                name={`proofImage${index}`}
+                accept="image/*"
+                onChange={(e) => handleProofImageUpload(index, e, campaign)}
+                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+          )}
+
+          {/* Display uploaded proof image }
+          {proofImages[index] && (
+            <img src={proofImages[index]} alt="Proof" className="max-w-auto h-[200px] mt-4" />
+          )}
+*/
