@@ -10,10 +10,11 @@ const DisplayCampaigns = ({ contract }) => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
+        console.log("not here");
         const allCampaigns = await contract.getCampaigns();
-
+       
         setCampaigns(allCampaigns);
-
+        console.log(allCampaigns);
       } catch (error) {
         console.error('Error fetching campaigns:', error);
       }
@@ -95,7 +96,7 @@ const DisplayCampaigns = ({ contract }) => {
           <h3 className="text-lg font-semibold">{campaign.title}</h3>
           <p className="text-sm text-gray-600 mb-2"> {campaign.description}</p>
           <p className="text-sm text-gray-500 mb-2">{campaign.owner}</p>
-          <p className="text-sm text-gray-500 font-bold mb-2"> verificationNum : {campaign.verificationNum.toString()}</p>
+          
           <img src={campaign.image} alt="Campaign" className="max-w-auto h-[200px] mb-4" />
 
           <p className="text-sm text-gray-500 mb-2">Amount collected : {ethers.formatUnits(campaign.amountCollected)} </p>
