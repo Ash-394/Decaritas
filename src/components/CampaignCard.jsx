@@ -20,8 +20,8 @@ function CampaignCard({ campaign }) {
   };
 
   const settingStatus = () => {
-    if (campaign.status != undefined) {
-      if (ethers.formatUnits(campaign.status) == 0.000000000000000001) {
+    if (campaign.status !== undefined) {
+      if (ethers.formatUnits(campaign.status) === 0.000000000000000001) {
         setStatus("Approved");
       }
       else {
@@ -39,11 +39,11 @@ function CampaignCard({ campaign }) {
       <p className="text-sm text-gray-600 mb-2"> {campaign.description}</p>
       <p className="text-sm text-gray-500 mb-2">{campaign[0]}</p>
       <img src={campaign.image} alt="Campaign" className="max-w-auto h-[200px] mb-4" />
-      {campaign.amountCollected != undefined && <p className="text-sm text-gray-500 mb-2">Amount collected : {ethers.formatUnits(campaign.amountCollected)} </p>}
+      {campaign.amountCollected !== undefined && <p className="text-sm text-gray-500 mb-2">Amount collected : {ethers.formatUnits(campaign.amountCollected)} </p>}
 
       <p className="text-sm text-gray-500 mb-2">Target : {ethers.formatUnits(campaign.target)} </p>
       <p className="text-sm text-gray-500 mb-2"> Deadline: {formatTimestamp(campaign.deadline.toString())} </p>
-      {campaign.status != undefined && <p className="text-sm text-gray-500 mb-2">Status : {status} </p>}
+      {campaign.status !== undefined && <p className="text-sm text-gray-500 mb-2">Status : {status} </p>}
     </div>
   );
 }

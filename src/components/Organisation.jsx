@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ProfileCard from './ProfileCard';// Assuming you have a ProfileDetails component
+import ProfileCard from './ProfileCard';
 import CampaignCard from './CampaignCard';
 import GetDonateContract from './GetDonateContract';
-
+import CreateCampaign from './CreateCampaign';
+import GetVerifierContract from './GetVerifierContract';
 
 const  OrganizationPage = () =>  {
 
@@ -10,6 +11,9 @@ const  OrganizationPage = () =>  {
     const [ongoingCampaigns, setOngoingCampaigns] = useState([]);
     const [closedCampaigns, setClosedCampaigns] = useState([]);
     const [contract, setContract] = useState(null);
+    const [verifier, setVerifier] = useState(null);
+    const [pendingApprovals, setPendingApprovals] = useState([]);
+    const [approvedApprovals, setApprovedApprovals] = useState([]);
 
     const formatTimestamp = (timestamp) => {
         const milliseconds = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
@@ -29,8 +33,10 @@ const  OrganizationPage = () =>  {
     useEffect(() => {
         const fetchContract = async () => {
             try {
-                const contractInstance = await GetDonateContract(); // Get the contract instance
-                setContract(contractInstance); // Set the contract instance in state
+                const contractInstance = await GetDonateContract(); 
+                setContract(contractInstance); 
+                const verifierInstance = await GetVerifierContract(); 
+                setVerifier(verifierInstance); 
             } catch (error) {
                 console.error('Error fetching contract:', error);
             }
@@ -78,12 +84,32 @@ const  OrganizationPage = () =>  {
         
     }, [campaigns]);
 
+    useEffect(() => {
+        // Listen for the CampaignApproved event
+        if (verifier) {
+          verifier.on("CampaignApproved", (index) => {
+            // Update the approved approvals array with the approved campaign
+            const approvedCampaign = pendingApprovals[index];
+            setApprovedApprovals(prevApprovedApprovals => [...prevApprovedApprovals, approvedCampaign]);
+            
+            // Remove the approved campaign from the pending approvals array
+            setPendingApprovals(prevPendingApprovals => prevPendingApprovals.filter((_, i) => i !== index));
+          });
+          
+          // Remove the event listener when component unmounts
+          return () => {
+            contract.removeAllListeners("CampaignApproved");
+          };
+        }
+      }, [contract, pendingApprovals]);
+
 
     return (
         <div className="flex justify-center overflow-y-scroll">
             
             <div className="w-1/2 p-6">
                 <ProfileCard />
+                <CreateCampaign/>
             </div>
             <div className="w-1/2 p-12 ">
             {ongoingCampaigns.length > 0 && (
