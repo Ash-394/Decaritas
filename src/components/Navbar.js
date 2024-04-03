@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from '../Assets/503.png';
-import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -13,40 +12,59 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
-import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import AppRoutes from "./AppRoutes";
 
 const Navbar = () => {
-  const [openMenu, setOpenMenu] = useState(false);
+  let Links = [
+    { name: "HOME", link: "/" },
+    { name: "DONATE", link: "/donate" },
+    { name: "VERIFIER", link: "/verifier" },
+    { name: "PROFILE", link: "/profile" },
+    {name:"CONTACT",link:"/contact"}
+  ];
+
   const menuOptions = [
     {
       text: "Home",
       icon: <HomeIcon />,
+      link: "/",
     },
     {
       text: "About",
       icon: <InfoIcon />,
+      link: "/about",
     },
-    
     {
       text: "Contact",
       icon: <PhoneRoundedIcon />,
+      link: "/contact",
     },
-    
+    {
+      text: "Profile",
+      icon: <AccountCircleIcon />,
+      link: "/profile",
+    },
+    {
+      text: "Verifier",
+      icon: <CheckCircleIcon />,
+      link: "/verifier",
+    },
   ];
+
+  const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <nav>
       <div className="nav-logo-container">
         <img src={Logo} alt="" />
       </div>
       <div className="navbar-links-container">
-        <a href="">Home</a>
-        <a href="">About</a>
-       
-        <a href="">Contact</a>
-        
-        
+        {Links.map((link) => (
+          <Link key={link.name} to={link.link}>{link.name}</Link>
+        ))}
       </div>
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
@@ -60,7 +78,7 @@ const Navbar = () => {
         >
           <List>
             {menuOptions.map((item) => (
-              <ListItem key={item.text} disablePadding>
+              <ListItem key={item.text} disablePadding component={Link} to={item.link}>
                 <ListItemButton>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
@@ -71,7 +89,9 @@ const Navbar = () => {
           <Divider />
         </Box>
       </Drawer>
+      <AppRoutes/>
     </nav>
+    
   );
 };
 
