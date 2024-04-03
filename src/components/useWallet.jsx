@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
 const useWallet = () => {
-  const [provider, setProvider] = useState(null);
-  const [signer, setSigner] = useState(null);
 
   const connectWallet = async () => {
     try {
@@ -11,8 +9,6 @@ const useWallet = () => {
         // Connect to the Ethereum network
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        setProvider(provider);
-        setSigner(signer);
 
       } else {
         throw new Error('MetaMask is not installed.');
@@ -22,7 +18,7 @@ const useWallet = () => {
     }
   };
 
-  return { provider, signer, connectWallet };
+  return { connectWallet };
 };
 
 export default useWallet;
