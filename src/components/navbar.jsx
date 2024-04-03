@@ -6,9 +6,11 @@ import AppRoutes from './AppRoutes';
 const Nav = () => {
   let Links = [
     { name: "HOME", link: "/" },
+    {name:"ABOUT",link:"/about"},
     { name: "DONATE", link: "/donate" },
     { name: "VERIFIER", link: "/verifier" },
     { name: "profile", link: "/profile" },
+    {name:"CONTACT",link:"/contact"}
     
 
   ];
