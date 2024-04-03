@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Homepage from './Homepage';
+import { BrowserRouter as Router} from 'react-router-dom';
 import useWallet from './useWallet';
-import FundingApp from './DonateApp';
-import OrganizationPage from './Organisation';
-import Profile from './profile';
-
-import CampaignApprovalApp from './Verifier';
+import AppRoutes from './AppRoutes';
 
 const Nav = () => {
   let Links = [
@@ -58,14 +53,9 @@ const Nav = () => {
         <button className="text-white hover:text-gray-400 duration-500 font-mono" onClick={handleConnectWallet}>Connect wallet</button>
       </div>
       <Router>
-        <Routes>
-          <Route path="/" exact element={<Homepage />} />
-          <Route path="/donate" exact element={<FundingApp />} />
-          <Route path="/verifier" exact element={<CampaignApprovalApp />} />
-          <Route path="/profile" exact element={<Profile  />} />
-
-        </Routes>
+        <AppRoutes/>
       </Router>
+      
     </div>
 
   )

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProfileCard from './ProfileCard';// Assuming you have a ProfileDetails component
 import CampaignCard from './CampaignCard';
 
-function OrganizationPage({ contract }) {
+const  OrganizationPage = ({ contract }) =>  {
 
     const [campaigns, setCampaigns] = useState([]);
     const [ongoingCampaigns, setOngoingCampaigns] = useState([]);

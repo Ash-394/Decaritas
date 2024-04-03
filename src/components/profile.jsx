@@ -3,12 +3,14 @@ import DonateContract from "./contract.json"; // Import the ABI of your contract
 import { ethers } from "ethers";
 import OrganizationPage from './Organisation';
 import GetDonateContract from './GetDonateContract';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
     const [showOrg, setShowOrg] = useState(false);
     const [showUser, setShowUser] = useState(false);
     const [contract, setContract] = useState(null);
-    const [accounts, setAccounts] = useState(null); // State variable to store the wallet address
+    const [accounts, setAccounts] = useState(null); 
+    const navigate = useNavigate();
 
     // Function to connect with MetaMask and retrieve wallet address
     const connectToMetaMask = async () => {
@@ -38,6 +40,11 @@ function Profile() {
             console.error('MetaMask extension not detected');
         }
     };
+    useEffect(() => {
+        if (showOrg) {
+            navigate('/org');
+        }
+    }, [showOrg, navigate]);
 
 
 
