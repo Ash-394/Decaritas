@@ -1,51 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { ethers } from 'ethers';
 import FormField from './form';
+import GetVerifierContract from './GetVerifierContract';
+import GetDonateContract from './GetDonateContract';
 
-const CreateCampaign = ({ contract }) => {
+const CreateCampaign = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [ownerAddress, setOwnerAddress] = useState('');
-  const [verificationNum, setVerificationNum] = useState('');
   const [target, setTarget] = useState('');
   const [deadline, setDeadline] = useState('');
   const [image, setImage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [contract, setContract] = useState(null);
+  const [verifier, setVerifier] = useState(null);
+
+  useEffect(() => {
+    const fetchContract = async () => {
+        try {
+            const contractInstance = await GetDonateContract(); 
+            setContract(contractInstance); 
+
+            const verifierInstance = await GetVerifierContract(); 
+            setVerifier(verifierInstance); 
+        } catch (error) {
+            console.error('Error fetching contract:', error);
+        }
+
+    }
+    fetchContract();
+    
+},[])
 
   const createCampaign = async () => {
     try {
       const parsedTarget = ethers.parseEther(target.toString()); // Convert to wei
       const parsedDeadline = Math.floor(new Date(deadline).getTime() / 1000); // Convert deadline to UNIX timestamp
 
-      const tx = await contract.createCampaign(
+      await verifier.requestCampaignApproval(
         ownerAddress,
         title,
-        verificationNum,
         description,
         parsedTarget,
         parsedDeadline,
         image
       );
 
-      await tx.wait();
-      console.log('Campaign created successfully');
-      // Clear form fields after successful creation
+      console.log('Campaign requested for approval');
+      // Clear form fields after successful request
       setTitle('');
       setDescription('');
       setTarget('');
       setDeadline('');
       setImage('');
       setOwnerAddress('');
-      setVerificationNum('');
       setErrorMessage('');
       setShowModal(false);
     } catch (error) {
-      alert(error.message);
-      console.error('Error creating campaign:', error.message);
+      console.error('Error requesting campaign approval:', error.message);
       setErrorMessage(error.message);
     }
   };
+  
 
   return (
     <div className='flex justify-center items-center'>
@@ -73,13 +90,6 @@ const CreateCampaign = ({ contract }) => {
               inputType="text"
               value={title}
               handleChange={(e) => setTitle(e.target.value)}
-            />
-            <FormField
-              labelName="Verification Number:"
-              placeholder="Enter verification number"
-              inputType="number"
-              value={verificationNum}
-              handleChange={(e) => setVerificationNum(e.target.value)}
             />
             <FormField
               labelName="Description:"
@@ -110,7 +120,7 @@ const CreateCampaign = ({ contract }) => {
               handleChange={(e) => setImage(e.target.value)}
             />
             <div className='mt-3 mb-3 flex items-center justify-evenly'>
-              <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={createCampaign}>Create</button>
+              <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={createCampaign}>Request Approval</button>
               <button className='text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2' onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>
