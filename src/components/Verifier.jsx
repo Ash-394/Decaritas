@@ -1,37 +1,27 @@
 // Import necessary libraries
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import VerifierContract from './verifier.json'; // Assuming you have compiled and deployed the contract
+import VerifierContract from './verifier.json';
 
+import GetVerifierContract from './GetVerifierContract';
 // Define the component
 function CampaignApprovalApp() {
-  const [provider, setProvider] = useState(null);
-  const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
   const [pendingApprovals, setPendingApprovals] = useState([]);
 
   useEffect(() => {
-    // Load Ethereum provider and signer
-    
-    async function loadBlockchainData() {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-    console.log("contract");
-    // Deployed contract address
-    const contractAddress = "0x1d83eAb5E9Cc764ED9c25615630C72E5287522C2";
+    const fetchContract = async () => {
+        try {
+            const contractInstance = await GetVerifierContract(); // Get the contract instance
+            setContract(contractInstance); // Set the contract instance in state
+        } catch (error) {
+            console.error('Error fetching contract:', error);
+        }
 
-    // Instantiate the contract
-    const verifyingContract = new ethers.Contract(
-      contractAddress,
-      VerifierContract.abi,
-      signer
-    );
-
-    setContract(verifyingContract);
     }
-
-    loadBlockchainData();
-  }, []);
+    fetchContract();
+    
+},[])
 
   useEffect(() => {
     // Fetch pending approvals from the contract
@@ -43,6 +33,7 @@ function CampaignApprovalApp() {
     }
 
     fetchPendingApprovals();
+    console.log(pendingApprovals);
   }, [contract]);
 
   // Handle campaign approval
@@ -66,7 +57,7 @@ function CampaignApprovalApp() {
           <li key={index}>
             <div>Title: {approval.title}</div>
             <div>Description: {approval.description}</div>
-            <div>Target: {approval.target}</div>
+            <div>Target: {ethers.formatUnits(approval.target)}</div>
             <div>Deadline: {approval.deadline}</div>
             <div>Status: {approval.status}</div>
             <button onClick={() => approveCampaign(index)}>Approve</button>

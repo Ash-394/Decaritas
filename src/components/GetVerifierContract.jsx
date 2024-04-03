@@ -11,9 +11,10 @@ const GetVerifierContract = async () => {
   
       if (ethereum) {
         console.log("hereeee");
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
+        console.log(contract);
         return contract;
       } else {
         throw new Error("Please connect");
