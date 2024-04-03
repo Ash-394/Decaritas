@@ -4,16 +4,17 @@ import { ethers } from 'ethers';
 import VerifierContract from './verifier.json';
 
 import GetVerifierContract from './GetVerifierContract';
-// Define the component
+import CampaignCard from './CampaignCard';
+
 function CampaignApprovalApp() {
   const [contract, setContract] = useState(null);
   const [pendingApprovals, setPendingApprovals] = useState([]);
-
+  const [approvedApprovals, setApprovedApprovals] = useState([]);
   useEffect(() => {
     const fetchContract = async () => {
         try {
-            const contractInstance = await GetVerifierContract(); // Get the contract instance
-            setContract(contractInstance); // Set the contract instance in state
+            const contractInstance = await GetVerifierContract(); 
+            setContract(contractInstance); 
         } catch (error) {
             console.error('Error fetching contract:', error);
         }
@@ -27,16 +28,20 @@ function CampaignApprovalApp() {
     // Fetch pending approvals from the contract
     async function fetchPendingApprovals() {
       if (contract) {
-        const pendingApprovals = await contract.getPendingApprovals();
+        const approvals = await contract.getPendingApprovals();
+        
+
+        const pendingApprovals = approvals.filter(approval => ethers.formatUnits(approval.status) != '0.000000000000000001');
         setPendingApprovals(pendingApprovals);
+        const approvedApprovals = approvals.filter(approval => ethers.formatUnits(approval.status) === '0.000000000000000001');
+        setApprovedApprovals(approvedApprovals);
       }
     }
 
     fetchPendingApprovals();
-    console.log(pendingApprovals);
   }, [contract]);
 
-  // Handle campaign approval
+
   const approveCampaign = async (index) => {
     try {
       await contract.approveCampaign(index);
@@ -47,22 +52,37 @@ function CampaignApprovalApp() {
     }
   };
 
-  // Render UI
   return (
     <div>
       <h1>Campaign Approval App</h1>
       <h2>Pending Approvals:</h2>
       <ul>
-        {pendingApprovals.map((approval, index) => (
+      {pendingApprovals.length > 0 ? (
+        pendingApprovals.map((approval, index) => (
+          
           <li key={index}>
-            <div>Title: {approval.title}</div>
-            <div>Description: {approval.description}</div>
-            <div>Target: {ethers.formatUnits(approval.target)}</div>
-            <div>Deadline: {approval.deadline}</div>
-            <div>Status: {approval.status}</div>
+            <CampaignCard campaign={approval}/>
+
             <button onClick={() => approveCampaign(index)}>Approve</button>
           </li>
-        ))}
+        ))
+        ) : (
+          <li>No pending approvals</li>
+        )}
+      </ul>
+
+      <h2>Approved Campaigns</h2>
+      <ul>
+      {approvedApprovals.length > 0 ? (
+        approvedApprovals.map((approval, index) => (
+          
+          <li key={index}>
+            <CampaignCard campaign={approval}/>
+          </li>
+        ))
+        ) : (
+          <li>None approved</li>
+        )}
       </ul>
     </div>
   );
