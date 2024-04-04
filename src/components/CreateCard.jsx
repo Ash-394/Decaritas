@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 
-function CampaignCard({ campaign }) {
+function CreateCard({ campaign }) {
 
   const formatTimestamp = (timestamp) => {
     const milliseconds = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
@@ -24,16 +24,16 @@ function CampaignCard({ campaign }) {
 
 {campaign.title !== undefined &&<h3 className="text-lg font-semibold">{campaign.title}</h3> }
 {campaign.description !== undefined &&
-      <p className="text-sm text-gray-600 mb-2"> {campaign.description}</p>}
+      <p className="text-sm text-black mb-2"> {campaign.description}</p>}
       {campaign[0] !== undefined && <p className="text-sm text-black mb-2">{campaign[0]}</p>}
       {campaign.image !== undefined && <img src={campaign.image} alt="Campaign" className="max-w-auto h-[200px] mb-4" />}
       {campaign.amountCollected !== undefined && <p className="text-sm text-black mb-2">Amount collected : {'$' + (ethers.formatUnits(campaign.amountCollected.toString()))} </p>}
 
-      {campaign.target !== undefined && <p className="text-sm text-black mb-2">Target : {'$' + (campaign.target.toString())} </p>
+      {campaign.target !== undefined && <p className="text-sm text-black mb-2">Target : {'$' + ethers.formatUnits(campaign.target.toString())} </p>
       }
 
-      {campaign.verifierFee !== undefined && <p className="text-sm text-black mb-2">verifierFee : { '$' + (campaign.verifierFee.toString())} </p>}
-      {campaign.totalFundsRequired !== undefined && <p className="text-sm text-black mb-2">totalFundsRequired : {'$' + (campaign.totalFundsRequired.toString())} </p>
+      {campaign.verifierFee !== undefined && <p className="text-sm text-black mb-2">verifierFee : { '$' + ethers.formatUnits(campaign.verifierFee.toString())} </p>}
+      {campaign.totalFundsRequired !== undefined && <p className="text-sm text-black mb-2">totalFundsRequired : {'$' + ethers.formatUnits(campaign.totalFundsRequired.toString())} </p>
       }
       {campaign.deadline !== undefined && <p className="text-sm text-black mb-2">Deadline: {formatTimestamp(campaign.deadline.toString())} </p>
       }
@@ -42,4 +42,4 @@ function CampaignCard({ campaign }) {
 }
 
 
-export default CampaignCard;
+export default CreateCard;

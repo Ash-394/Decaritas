@@ -3,7 +3,7 @@ import VerifierContract from './verifier.json';
 
 
 const GetVerifierContract = async () => {
-    const contractAddress = "0xb5753aA213D9940de2e36c0292Bf8Acee1E45d62";
+    const contractAddress = "0x8F60b3f38478ea3b5E40b5219a99d6c51e97F80E";
     const contractABI = VerifierContract.abi;
   
     try {

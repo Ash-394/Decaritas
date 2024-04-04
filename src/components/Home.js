@@ -2,13 +2,16 @@ import react from "react";
 import BannerBackground from "../Assets/900.png";
 import BannerImage from '../Assets/202.png';
 import { FiArrowRight } from "react-icons/fi";
+import Nav from "./navbar";
 
 const Home = () => {
     return (
-      <div className="home-container">
+      <div className="home-container bg-cover bg-center w-full h-screen"  style={{ backgroundImage: "url('https://images.pexels.com/photos/4321069/pexels-photo-4321069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
+        
+        
         <div className="home-banner-container">
+          
           <div className="home-bannerImage-container">
-          <img src={BannerBackground} alt=""  className="background-repeat" />
 
           </div>
           <div className="home-text-section">

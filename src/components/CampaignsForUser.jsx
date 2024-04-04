@@ -24,24 +24,7 @@ const CampaignsForUser = ({ contract }) => {
     fetchCampaigns();
   }, [contract]); // Execute useEffect whenever contract changes
 
-  /*
-  const handleProofImageUpload = (campaignId, event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const proofImageUrl = reader.result;
-      setProofImages(prevProofImages => ({
-        ...prevProofImages,
-        [campaignId]: proofImageUrl,
-      }));
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
-  */
+ 
 
 
   const handleDonationChange = (index, value) => {
@@ -94,10 +77,9 @@ const CampaignsForUser = ({ contract }) => {
 
           </div>
 
-          {/* Buttons for donating and withdrawing */}
+   
           <div className='mt-3 mb-3 flex items-center justify-evenly'>
             <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => donateToCampaign(index, donationValues[index])}>DONATE</button>
-            <button className='text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2' onClick={() => handleWithdraw(index)}>Withdraw</button>
           </div>
         </div>
       ))}

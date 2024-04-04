@@ -3,7 +3,7 @@ import DonateContract from "./contract.json";
 
 
 const GetDonateContract = async () => {
-    const contractAddress = "0xB40c84A05aF89B95d948f3423B1cAD357e5dA3bf";
+    const contractAddress = "0x687dd60f6704b55Bca0f4f98311b767f87e1ACE6";
     const contractABI = DonateContract.abi;
   
     try {

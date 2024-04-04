@@ -4,6 +4,7 @@ import CampaignCard from './CampaignCard';
 import GetDonateContract from './GetDonateContract';
 import CreateCampaign from './CreateCampaign';
 import GetVerifierContract from './GetVerifierContract';
+import {ethers} from 'ethers';
 
 const  OrganizationPage = () =>  {
 
@@ -68,7 +69,8 @@ const  OrganizationPage = () =>  {
         const closed = [];
 
         userCampaigns.forEach(campaign => {
-            if (formatTimestamp(campaign.deadline.toString()) >= now) {
+            
+            if (campaign.deadline.toString() >= now) {
                 ongoing.push(campaign);
             } else {
                 closed.push(campaign);
@@ -77,9 +79,6 @@ const  OrganizationPage = () =>  {
 
         setOngoingCampaigns(ongoing);
         setClosedCampaigns(closed);
-        console.log("ongoing",ongoing);
-        console.log("closed",closed);
-        
     }, [campaigns]);
 
     useEffect(() => {
@@ -144,16 +143,21 @@ const  OrganizationPage = () =>  {
           }
         } catch (error) {
           console.error('Error withdrawing funds:', error);
+          alert("balance zero !!");
         }
       };
 
 
     return (
-        <div className="flex justify-center overflow-y-scroll">
+        <div className="flex justify-center overflow-y-scroll bg-cover bg-center w-full h-screen"  style={{ backgroundImage: "url('https://images.pexels.com/photos/4319805/pexels-photo-4319805.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
             
-            <div className="w-1/2 p-6">
-                <ProfileCard />
-                <CreateCampaign/>
+            <div className="w-1/2 p-6 ">
+                <div className="mt-16">
+                <ProfileCard name='Old Paradise' walletAddress='0x1a89fC3068535785D8d59EE9a2e7b526134dE60F' location='DELHI' />
+                <div className="mt-16"><CreateCampaign/></div>
+                
+                </div>
+                
             </div>
             <div className="w-1/2 p-12 ">
             {ongoingCampaigns.length > 0 && (
@@ -162,8 +166,8 @@ const  OrganizationPage = () =>  {
                     {ongoingCampaigns.map((campaign, index) => (
                         <div key={index} className="bg-white shadow-md rounded-lg p-4">
                             <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
-                            <h1>balance : {(campaign.balance).toString()}</h1>
-                            <button onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
+                            <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
+                            <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'  onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
                         </div>
                     ))
                     }
@@ -175,8 +179,8 @@ const  OrganizationPage = () =>  {
                         {closedCampaigns.map((campaign, index) => (
                             <div key={index} className="bg-white shadow-md rounded-lg p-4">
                                 <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
-                                <h1>balance : {(campaign.balance).toString()}</h1>
-                            <button onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
+                                <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
+                            <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
                             </div>
                         ))
                         }

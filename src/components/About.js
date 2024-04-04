@@ -5,12 +5,12 @@ import { BsFillPlayCircleFill } from "react-icons/bs";
 
 const About = () => {
   return (
-    <div className="about-section-container">
+    <div className="about-section-container bg-center w-full h-screen"  style={{ backgroundImage: "url('https://images.pexels.com/photos/7135057/pexels-photo-7135057.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
       <div className="about-background-image-container">
-        <img src={AboutBackground} alt="" />
+        
       </div>
       <div className="about-section-image-container">
-        <img src={AboutBackgroundImage} alt="" />
+        
       </div>
       <div className="about-section-text-container">
         <p className="primary-subheading">About</p>
