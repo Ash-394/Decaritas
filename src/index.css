@@ -25,13 +25,6 @@ code {
         font-family: "DM Serif Display", serif;
 }
 
-body {
-  background: #dcdce6;
-  background-image: url('./assets/900.png');
-  background-repeat: no-repeat;
-  background-size:cover;
-}
-
 .background-repeat {
   background-repeat: repeat;
   background-size:cover;
