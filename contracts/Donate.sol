@@ -9,6 +9,8 @@ contract Donate {
         string title;
         string description;
         uint256 target;
+        uint256 verifierFee;
+        uint256 totalFundsRequired;
         uint256 deadline;
         uint256 amountCollected;
         string image;
@@ -22,7 +24,8 @@ contract Donate {
     mapping(address => mapping(uint256 => uint256)) public donationsByUser;
 
     uint256 public numberOfCampaigns = 0;
-
+    event CampaignCreated(address indexed owner, string title, string description, uint256 target, uint256 verifierFee, uint256 totalFundsRequired, uint256 deadline, string image);
+    event FundsWithdrawn(uint256 indexed _id, address recipient, uint256 amountToWithdraw);
     Verifier public verifierContract;
 
     constructor(address _verifierContract) {
@@ -30,7 +33,11 @@ contract Donate {
     }
 
     function createCampaign(address _owner, string memory _title, string memory _description, uint256 _target, uint256 _deadline, string memory _image) public {
-        verifierContract.requestCampaignApproval(_owner, _title, _description, _target, _deadline, _image);
+        uint256 verifierFeePercentage = 1;
+        uint256 verifierFee = (_target * verifierFeePercentage) / 100;
+
+        uint256 totalFundsRequired = _target + verifierFee;
+        verifierContract.requestCampaignApproval(_owner, _title, _description, _target, verifierFee, totalFundsRequired, _deadline, _image);
     }
 
     function approveAndCreateCampaign(uint256 _index) external {
@@ -40,21 +47,26 @@ contract Donate {
         Verifier.CampaignApproval memory approval = pendingApprovals[_index];
 
         // campaign is created is its approved by the verifier ; status = true
-        require(approval.status == Verifier.CampaignStatus.Approved, "Campaign not approved yet");
+        //require(approval.status == Verifier.CampaignStatus.Approved, "Campaign not approved yet");
 
         Campaign storage newCampaign = campaigns[numberOfCampaigns];
         newCampaign.owner = approval.campaignOwner;
         newCampaign.title = approval.title;
         newCampaign.description = approval.description;
         newCampaign.target = approval.target;
+        newCampaign.verifierFee = approval.verifierFee;
+        newCampaign.totalFundsRequired = approval.totalFundsRequired;
         newCampaign.deadline = approval.deadline;
         newCampaign.image = approval.image;
         newCampaign.amountCollected = 0;
         newCampaign.balance = 0; 
 
         campaignsByOwner[newCampaign.owner].push(numberOfCampaigns);
-
         numberOfCampaigns++;
+        // Emit event for the created campaign
+        emit CampaignCreated(newCampaign.owner, newCampaign.title, newCampaign.description, newCampaign.target, newCampaign.verifierFee, newCampaign.totalFundsRequired,  newCampaign.deadline, newCampaign.image);
+
+        
     }
     
     function donateToCampaign(uint256 _id) public payable {
@@ -63,7 +75,7 @@ contract Donate {
 
         Campaign storage campaign = campaigns[_id];
         require(campaign.deadline > block.timestamp, "Donation is not allowed after the deadline");
-        require(campaign.amountCollected < campaign.target, "Target already achieved");
+        require(campaign.amountCollected < campaign.totalFundsRequired, "Target already achieved");
         campaign.donators.push(msg.sender);
         campaign.donations.push(amount);
 
@@ -114,11 +126,13 @@ contract Donate {
         require(msg.sender == campaign.owner, "Only the campaign owner can withdraw funds");
         //require(block.timestamp > campaign.deadline, "Withdrawal is only allowed after the deadline");
 
-        uint256 amountToWithdraw = campaign.balance;
+        uint256 amountToWithdraw = campaign.balance - campaign.verifierFee;
         campaign.balance = 0;
 
         // Transfer funds to the campaign owner
         payable(msg.sender).transfer(amountToWithdraw);
+        verifierContract.addVerifierFee{value: campaign.verifierFee}();
+        emit FundsWithdrawn(_id, msg.sender, amountToWithdraw);
     }
 
     function getTotalAmountCollected(address _owner) public view returns (uint256) {
@@ -136,9 +150,3 @@ contract Donate {
         return campaignsByOwner[_owner].length;
     }
 }
-
-
-/*
-verifier addr -0xBE8CE8CEb81CF4a2a03bc0e329149d8CBD0E6d8E
-donate addr - 0xDaF6d3Da4467A0eF8a608178b769c03E9466AaC3
-*/

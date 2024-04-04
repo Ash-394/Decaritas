@@ -26,9 +26,13 @@ const fetchPendingApprovals = async () => {
   if (contract) {
     const approvals = await contract.getPendingApprovals();
     setApprovals(approvals);
-    const pendingApprovals = approvals.filter(approval => ethers.formatUnits(approval.status) !== '0.000000000000000001');
+    
+    // Filter pending approvals based on whether they are approved or not
+    const pendingApprovals = approvals.filter(approval => !contract.approvedCampaigns(approval));
     setPendingApprovals(pendingApprovals);
-    const approvedApprovals = approvals.filter(approval => ethers.formatUnits(approval.status) === '0.000000000000000001');
+    
+    // Filter approved approvals based on whether they are approved or not
+    const approvedApprovals = approvals.filter(approval => contract.approvedCampaigns(approval));
     setApprovedApprovals(approvedApprovals);
   }
 };
@@ -40,15 +44,35 @@ const fetchPendingApprovals = async () => {
 
   const approveCampaign = async (index) => {
     try {
-      await contract.approveCampaign(index);
-      console.log("approved")
-      const approvals = await contract.getPendingApprovals();
-      setApprovals(approvals);
-      // Refresh pending approvals after approval
+        if (contract) {
+            await contract.approveCampaign(index);
+            console.log("approved");
+        } else {
+            console.error('Verifier contract not available');
+        }
     } catch (error) {
-      console.error('Error approving campaign:', error);
+        console.error('Error approving campaign:', error);
     }
-  };
+};
+
+useEffect(() => {
+  // Listen for the CampaignApproved event
+  if (contract) {
+      contract.on("CampaignApproved", (index) => {
+          // Update the approved approvals array with the approved campaign
+          const approvedCampaign = pendingApprovals[index];
+          setApprovedApprovals(prevApprovedApprovals => [...prevApprovedApprovals, approvedCampaign]);
+          
+          // Remove the approved campaign from the pending approvals array
+          setPendingApprovals(prevPendingApprovals => prevPendingApprovals.filter((_, i) => i !== index));
+      });
+      
+      // Remove the event listener when component unmounts
+      return () => {
+          contract.removeAllListeners("CampaignApproved");
+      };
+  }
+}, [contract, pendingApprovals]);
 
   return (
     <div>
