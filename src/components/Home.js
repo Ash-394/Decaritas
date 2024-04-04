@@ -1,5 +1,5 @@
 import react from "react";
-import BannerBackground from "../Assets/home-banner-background.png";
+import BannerBackground from "../Assets/900.png";
 import BannerImage from '../Assets/202.png';
 import { FiArrowRight } from "react-icons/fi";
 
