@@ -26,6 +26,6 @@ code {
 }
 
 .background-repeat {
-  background-repeat: repeat;
-  background-size:cover;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
