@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
 import FundingApp from './DonateApp';
-import CampaignApprovalApp from './Verifier.jsx';
+import CampaignApprovalApp from './Verifier';
 import Profile from './profile';
 import OrganizationPage from './Organisation';
 import Contact from './Contact';
