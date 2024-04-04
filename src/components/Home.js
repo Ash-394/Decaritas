@@ -8,7 +8,8 @@ const Home = () => {
       <div className="home-container">
         <div className="home-banner-container">
           <div className="home-bannerImage-container">
-            <img src={BannerBackground} alt="" />
+          <img src={BannerBackground} alt=""  className="background-repeat" />
+
           </div>
           <div className="home-text-section">
             <h1 className="primary-heading">

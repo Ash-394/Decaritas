@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Reem Kufi", sans-serif !important;
+  font-family: "DM Serif Display", serif;
 }
+
 img {
   max-width: 100%;
   height: auto;
@@ -21,6 +24,7 @@ body {
 
 body {
   background-color: #f6f6f6;
+  font-family: "DM Serif Display", serif;
 }
 
 nav {
@@ -68,10 +72,10 @@ nav {
 .home-bannerImage-container {
   position: absolute;
   top: -150px;
-  right: -250px;
-  left: -50;
+  right: -100px;
+  left: -100;
   z-index: -2;
-  max-width: 2400px;
+  max-width: 2500px;
 }
 .home-image-section {
   max-width: 600px;
