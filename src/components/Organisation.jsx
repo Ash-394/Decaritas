@@ -12,8 +12,6 @@ const  OrganizationPage = () =>  {
     const [closedCampaigns, setClosedCampaigns] = useState([]);
     const [contract, setContract] = useState(null);
     const [verifier, setVerifier] = useState(null);
-    const [pendingApprovals, setPendingApprovals] = useState([]);
-    const [approvedApprovals, setApprovedApprovals] = useState([]);
 
     const formatTimestamp = (timestamp) => {
         const milliseconds = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
@@ -58,7 +56,7 @@ const  OrganizationPage = () =>  {
         };
 
         fetchCampaigns();
-    }, [contract]);
+    }, [contract, campaigns]);
 
     // Categorize campaigns as ongoing or closed
     
@@ -85,23 +83,69 @@ const  OrganizationPage = () =>  {
     }, [campaigns]);
 
     useEffect(() => {
-        // Listen for the CampaignApproved event
-        if (verifier) {
-          verifier.on("CampaignApproved", (index) => {
-            // Update the approved approvals array with the approved campaign
-            const approvedCampaign = pendingApprovals[index];
-            setApprovedApprovals(prevApprovedApprovals => [...prevApprovedApprovals, approvedCampaign]);
-            
-            // Remove the approved campaign from the pending approvals array
-            setPendingApprovals(prevPendingApprovals => prevPendingApprovals.filter((_, i) => i !== index));
-          });
-          
-          // Remove the event listener when component unmounts
-          return () => {
-            contract.removeAllListeners("CampaignApproved");
-          };
+        const listenToEvents = async () => {
+            try {
+                if (verifier) {
+                    verifier.on('CampaignApproved', (index, approval) => {
+                        console.log('Campaign approved:', approval.title);
+                        // Execute frontend logic when a campaign is approved
+                        // For example, display a notification
+                    });
+                }
+            } catch (error) {
+                console.error('Error listening to events:', error);
+            }
+        };
+
+        listenToEvents();
+
+        // Cleanup listener
+        return () => {
+            if (verifier) {
+                verifier.removeAllListeners('CampaignApproved');
+            }
+        };
+    }, [verifier]);
+
+    useEffect(() => {
+        const listenToEvents = async () => {
+            try {
+                if (contract) {
+                    contract.on('CampaignCreated', (owner, title, description, target, verifierFee, totalFundsRequired, deadline, image) => {
+                        console.log('Campaign created:', title);
+                        // Execute frontend logic when a campaign is created
+                        // For example, update the campaigns list displayed in UI
+                    });
+                }
+            } catch (error) {
+                console.error('Error listening to events:', error);
+            }
+        };
+
+        listenToEvents();
+
+        // Cleanup listener
+        return () => {
+            if (contract) {
+                contract.removeAllListeners('CampaignCreated');
+            }
+        };
+    }, [contract]);
+
+   
+      const withdrawFunds = async (campaignId) => {
+        try {
+          if (contract) {
+            // Withdraw funds from the campaign
+            await contract.withdrawFunds(campaignId);
+            console.log('Funds withdrawn from campaign', campaignId);
+          } else {
+            console.error('Donate contract not available');
+          }
+        } catch (error) {
+          console.error('Error withdrawing funds:', error);
         }
-      }, [contract, pendingApprovals]);
+      };
 
 
     return (
@@ -118,6 +162,8 @@ const  OrganizationPage = () =>  {
                     {ongoingCampaigns.map((campaign, index) => (
                         <div key={index} className="bg-white shadow-md rounded-lg p-4">
                             <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
+                            <h1>balance : {(campaign.balance).toString()}</h1>
+                            <button onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
                         </div>
                     ))
                     }
@@ -129,6 +175,8 @@ const  OrganizationPage = () =>  {
                         {closedCampaigns.map((campaign, index) => (
                             <div key={index} className="bg-white shadow-md rounded-lg p-4">
                                 <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
+                                <h1>balance : {(campaign.balance).toString()}</h1>
+                            <button onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
                             </div>
                         ))
                         }

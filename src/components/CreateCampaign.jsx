@@ -38,7 +38,7 @@ const CreateCampaign = () => {
       const parsedTarget = ethers.parseEther(target.toString()); // Convert to wei
       const parsedDeadline = Math.floor(new Date(deadline).getTime() / 1000); // Convert deadline to UNIX timestamp
 
-      await verifier.requestCampaignApproval(
+      await contract.createCampaign(
         ownerAddress,
         title,
         description,

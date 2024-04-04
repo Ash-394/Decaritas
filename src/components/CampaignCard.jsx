@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 
 function CampaignCard({ campaign }) {
-  const [status, setStatus] = useState(null);
+
+  console.log("camp" ,campaign)
 
   const formatTimestamp = (timestamp) => {
     const milliseconds = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
@@ -19,31 +20,25 @@ function CampaignCard({ campaign }) {
     return formattedDate;
   };
 
-  const settingStatus = () => {
-    if (campaign.status !== undefined) {
-      if (ethers.formatUnits(campaign.status) === 0.000000000000000001) {
-        setStatus("Approved");
-      }
-      else {
-        setStatus("Pending");
-      }
-    }
-  }
-  useEffect(() => {
-    settingStatus();
-  }, [campaign]);
+
   return (
     <div className="card">
 
-      <h3 className="text-lg font-semibold">{campaign.title}</h3>
-      <p className="text-sm text-gray-600 mb-2"> {campaign.description}</p>
-      <p className="text-sm text-gray-500 mb-2">{campaign[0]}</p>
-      <img src={campaign.image} alt="Campaign" className="max-w-auto h-[200px] mb-4" />
-      {campaign.amountCollected !== undefined && <p className="text-sm text-gray-500 mb-2">Amount collected : {ethers.formatUnits(campaign.amountCollected)} </p>}
+{campaign.title !== undefined &&<h3 className="text-lg font-semibold">{campaign.title}</h3> }
+{campaign.description !== undefined &&
+      <p className="text-sm text-gray-600 mb-2"> {campaign.description}</p>}
+      {campaign[0] !== undefined && <p className="text-sm text-gray-500 mb-2">{campaign[0]}</p>}
+      {campaign.image !== undefined && <img src={campaign.image} alt="Campaign" className="max-w-auto h-[200px] mb-4" />}
+      {campaign.amountCollected !== undefined && <p className="text-sm text-gray-500 mb-2">Amount collected : {'$' + (campaign.amountCollected).toString()} </p>}
 
-      <p className="text-sm text-gray-500 mb-2">Target : {ethers.formatUnits(campaign.target)} </p>
-      <p className="text-sm text-gray-500 mb-2"> Deadline: {formatTimestamp(campaign.deadline.toString())} </p>
-      {campaign.status !== undefined && <p className="text-sm text-gray-500 mb-2">Status : {status} </p>}
+      {campaign.target !== undefined && <p className="text-sm text-gray-500 mb-2">Target : {'$' + (campaign.target.toString())} </p>
+      }
+
+      {campaign.verifierFee !== undefined && <p className="text-sm text-gray-500 mb-2">verifierFee : { '$' + (campaign.verifierFee.toString())} </p>}
+      {campaign.totalFundsRequired !== undefined && <p className="text-sm text-gray-500 mb-2">totalFundsRequired : {'$' + (campaign.totalFundsRequired.toString())} </p>
+      }
+      {campaign.deadline !== undefined && <p className="text-sm text-gray-500 mb-2">Deadline: {formatTimestamp(campaign.deadline.toString())} </p>
+      }
     </div>
   );
 }
