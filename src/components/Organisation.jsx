@@ -164,7 +164,7 @@ const  OrganizationPage = () =>  {
                 <div className="ongoing-campaigns">
                     <h3 className="text-xl font-bold mb-2">Ongoing Campaigns</h3>
                     {ongoingCampaigns.map((campaign, index) => (
-                        <div key={index} className="bg-white shadow-md rounded-lg p-4">
+                        <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2">
                             <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
                             <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
                             <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'  onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
@@ -177,7 +177,7 @@ const  OrganizationPage = () =>  {
                 <div className="closed-campaigns mt-6">
                         <h3 className="text-xl font-bold mb-2">Closed Campaigns</h3>
                         {closedCampaigns.map((campaign, index) => (
-                            <div key={index} className="bg-white shadow-md rounded-lg p-4">
+                            <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2">
                                 <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
                                 <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
                             <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>

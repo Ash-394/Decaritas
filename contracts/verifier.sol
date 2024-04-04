@@ -46,9 +46,24 @@ contract Verifier {
     }
 
     function getPendingApprovals() public view returns (CampaignApproval[] memory) {
-        return pendingApprovals;
-    }
+        uint256 count = 0;
+        for (uint256 i = 0; i < pendingApprovals.length; i++) {
+            if (!approvedCampaigns[i]) {
+                count++;
+            }
+        }
 
+        CampaignApproval[] memory pendingList = new CampaignApproval[](count);
+        uint256 index = 0;
+        for (uint256 i = 0; i < pendingApprovals.length; i++) {
+            if (!approvedCampaigns[i]) {
+                pendingList[index] = pendingApprovals[i];
+                index++;
+            }
+        }
+        
+        return pendingList;
+    }
     function getApprovedCampaigns() public view returns (CampaignApproval[] memory) {
         CampaignApproval[] memory approvedList = new CampaignApproval[](pendingApprovals.length);
 
@@ -59,7 +74,7 @@ contract Verifier {
                 index++;
             }
         }
-
+        
         return approvedList;
     }
 

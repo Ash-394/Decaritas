@@ -41,7 +41,7 @@ contract Donate {
     }
 
     function approveAndCreateCampaign(uint256 _index) external {
-        Verifier.CampaignApproval[] memory pendingApprovals = verifierContract.getPendingApprovals();
+        Verifier.CampaignApproval[] memory pendingApprovals = verifierContract.getApprovedCampaigns();
 
         require(_index < pendingApprovals.length, "Invalid index");
         Verifier.CampaignApproval memory approval = pendingApprovals[_index];
@@ -150,6 +150,7 @@ contract Donate {
         return campaignsByOwner[_owner].length;
     }
 }
+
 
 
 /*
