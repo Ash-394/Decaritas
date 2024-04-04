@@ -1,5 +1,5 @@
 import React from "react";
-import AboutBackground from "../Assets/about-background.png";
+import AboutBackground from "../Assets/901.png";
 import AboutBackgroundImage from '../Assets/203.png';
 import { BsFillPlayCircleFill } from "react-icons/bs";
 
