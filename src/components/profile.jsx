@@ -59,18 +59,17 @@ function Profile() {
         <div className="h-screen relative bg-cover bg-center w-full h-screen"  style={{ backgroundImage: "url('https://images.pexels.com/photos/4321069/pexels-photo-4321069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
             
          <div className="h-screen flex justify-center items-center">
-    {/* Card titled "Login" */}
     <div className="card p-8 border border-gray-300 rounded-lg shadow-md mt-10">
         <h1 className="text-xl font-semibold mb-2 justify-center items-center">Login</h1>
-            {/* Display the wallet address if available */}
             {accounts && <p className="mt-2">Wallet Address: {accounts}</p>}
-            {/* Connect to MetaMask button */}
             <button
                 className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
                 onClick={connectToMetaMask}
             >
                 Connect to MetaMask
             </button>
+
+            <p className="text-sm mt-3 justify-center items-center">Not registered? <a href='/profile' style={{textDecoration: 'underline'}}>Register here</a></p>
         </div>
                 {showOrg && <h1>org</h1>}
                 
