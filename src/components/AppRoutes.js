@@ -8,6 +8,7 @@ import Contact from './Contact';
 import About from './About';
 import UserDashboard from './UserDashboard';
 import VerifierDashboard from './VerifierDashboard';
+import CampaignsByDonator from './FetchCampaigns';
 const AppRoutes = () => {
   return (
     <Routes>
@@ -19,6 +20,7 @@ const AppRoutes = () => {
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/user" element={<UserDashboard />} />
       <Route path="/verifier" element={<VerifierDashboard />} />
+      <Route path="/fetch" element ={<CampaignsByDonator/>}/>
 
     
     </Routes>

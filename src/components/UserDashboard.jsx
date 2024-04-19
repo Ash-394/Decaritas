@@ -3,6 +3,7 @@ import CampaignCard from './CampaignCard';
 import ProfileCard from './ProfileCard';
 import GetDonateContract from './GetDonateContract';
 import { ethers } from 'ethers';
+import CampaignsByDonator from './FetchCampaigns' ;
 
 
 function UserDashboard() {
@@ -62,12 +63,14 @@ const donateToCampaign = async (campaignId, value) => {
 
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-cover bg-center w-full h-screen"  style={{ backgroundImage: "url('https://images.pexels.com/photos/4319805/pexels-photo-4319805.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
+    <div className="container mx-auto px-4 py-8 bg-cover bg-center  w-full h-screen "  style={{ backgroundImage: "url('https://images.pexels.com/photos/4319805/pexels-photo-4319805.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
       <ProfileCard
         name="David James"
         walletAddress="0x9B3f5942297F724F62DE8e2efF8C2430E159C62C"
       />
       
+      <div className="mt-16"><CampaignsByDonator/></div>
+                
       <h2 className="text-2xl font-bold mb-4">Campaigns</h2>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {campaigns.map((campaign, index) => (
@@ -82,7 +85,7 @@ const donateToCampaign = async (campaignId, value) => {
             />
 
           </div>
-
+          
           <div className='mt-3 mb-3 flex items-center justify-evenly'>
             <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => donateToCampaign(index, donationValues[index])}>DONATE</button>
           </div>
