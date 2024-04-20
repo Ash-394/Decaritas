@@ -102,7 +102,7 @@ function VerifierDashboard() {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {approvedApprovals.map((approval, index) => (
           <li key={index} className="border p-4">
-            <CampaignCard campaign={approval} />
+            {approval[0] === '0x0000000000000000000000000000000000000000' ? null : <CampaignCard campaign={approval} />}
           </li>
         ))}
       </ul>
