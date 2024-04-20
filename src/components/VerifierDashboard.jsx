@@ -92,9 +92,11 @@ function VerifierDashboard() {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {pendingApprovals.map((approval, index) => (
           <li key={index} className="border p-4">
-            <CampaignCard campaign={approval} />
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={() => approveCampaign(index)}>Approve</button>
+            {index === 0 ? <CampaignCard campaign={approval} /> : null}
+            {index === 0 ?  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={() => approveCampaign(index)}>Approve</button>
+          : null}
           </li>
+          
         ))}
       </ul>
 
