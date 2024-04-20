@@ -136,6 +136,9 @@ const  OrganizationPage = () =>  {
         try {
           if (contract) {
             // Withdraw funds from the campaign
+            if (ongoingCampaigns[campaignId].balance < ongoingCampaigns[campaignId].verifierFee ){
+                console.log('Fund collected is very less - should be greater than verifier feee');
+            }
             await contract.withdrawFunds(campaignId);
             console.log('Funds withdrawn from campaign', campaignId);
           } else {
