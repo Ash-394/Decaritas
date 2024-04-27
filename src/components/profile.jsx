@@ -23,11 +23,11 @@ function Profile() {
                 //const donor = "0x9B3f5942297F724F62DE8e2efF8C2430E159C62C";
                 const verifier = "0x373DC81415FcB8ded4Bd13BfC73219f6d9845Be8";
 
-                console.log(accounts[0] == owner.toLowerCase());
+
                 if (accounts[0] === owner.toLowerCase()){
                     setShowOrg(true);
                 }
-                if (accounts[0] === verifier.toLowerCase()){
+                else if (accounts[0] === verifier.toLowerCase()){
                     setShowVerifier(true);
                 }
                 else{

@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import GetDonateContract from './GetDonateContract';
 import UseWallet from './useWallet';
 
-const CampaignsByDonator = ({ userAddress }) => {
+const CampaignsByDonator = () => {
 const [contract, setContract] = useState(null);
 
   const [donatedCampaigns, setDonatedCampaigns] = useState([]);
@@ -61,9 +61,9 @@ useEffect(() => {
     const fetchDonatedCampaigns = async () => {
       try {
         if(contract && accounts){
-            const donatedCampaigns = await contract.getCampaignsByDonator(accounts);
+            const donatedCampaign = await contract.getCampaignsByDonator(accounts);
             const numberOfCampaigns = await contract.numberOfCampaigns();
-            setDonatedCampaigns(donatedCampaigns);
+            setDonatedCampaigns(donatedCampaign);
             const donations = [];
             for (let i = 1; i <= numberOfCampaigns; i++) {
               const donationAmount = await contract.donationsByUser(accounts, i);
@@ -81,11 +81,8 @@ useEffect(() => {
       }
     };
 
-    if (window.ethereum) {
-      fetchDonatedCampaigns();
-    } else {
-      console.error('Ethereum provider not found.');
-    }
+    
+    fetchDonatedCampaigns();
   }, [contract , accounts]);
 
 
