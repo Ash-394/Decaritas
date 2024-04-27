@@ -20,18 +20,18 @@ function Profile() {
                 // Storing the first account in the state variable
                 setAccounts(accounts[0]);
                 const owner = "0x1a89fC3068535785D8d59EE9a2e7b526134dE60F";
-                const donor = "0x9B3f5942297F724F62DE8e2efF8C2430E159C62C";
+                //const donor = "0x9B3f5942297F724F62DE8e2efF8C2430E159C62C";
                 const verifier = "0x373DC81415FcB8ded4Bd13BfC73219f6d9845Be8";
 
                 console.log(accounts[0] == owner.toLowerCase());
                 if (accounts[0] === owner.toLowerCase()){
                     setShowOrg(true);
                 }
-                if (accounts[0] === donor.toLowerCase()){
-                    setShowUser(true);
-                }
                 if (accounts[0] === verifier.toLowerCase()){
                     setShowVerifier(true);
+                }
+                else{
+                    setShowUser(true);
                 }
 
             } catch (error) {

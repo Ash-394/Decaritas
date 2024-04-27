@@ -14,21 +14,6 @@ const  OrganizationPage = () =>  {
     const [contract, setContract] = useState(null);
     const [verifier, setVerifier] = useState(null);
 
-    const formatTimestamp = (timestamp) => {
-        const milliseconds = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
-        const dateObject = new Date(milliseconds);
-
-        // Use Date methods to get the individual components of the date
-        const year = dateObject.getFullYear();
-        const month = dateObject.getMonth() + 1; // Month starts from 0, so add 1
-        const date = dateObject.getDate();
-        const hours = dateObject.getHours();
-        const minutes = dateObject.getMinutes();
-        const seconds = dateObject.getSeconds();
-        const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${date < 10 ? '0' + date : date} ${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-        return formattedDate;
-    };
-
     useEffect(() => {
         const fetchContract = async () => {
             try {
