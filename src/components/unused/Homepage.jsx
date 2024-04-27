@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useWallet from './useWallet';
+import useWallet from '../useWallet';
 const Homepage = () => {
   const [showMore, setShowMore] = useState(false);
   const { connectWallet } = useWallet();

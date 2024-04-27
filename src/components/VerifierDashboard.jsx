@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CampaignCard from './CampaignCard';
 import GetVerifierContract from './GetVerifierContract';
 import ProfileCard from './ProfileCard';
-import CreateCard from './CreateCard';
+
 function VerifierDashboard() {
   const [pendingApprovals, setPendingApprovals] = useState([]);
   const [approvedApprovals, setApprovedApprovals] = useState([]);

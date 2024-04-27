@@ -1,8 +1,8 @@
-import DonateContract from "./contract.json"; 
+import DonateContract from "../contract.json"; 
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import CampaignsForUser from "./CampaignsForUser";
-import CreateCampaign from "./CreateCampaign";
+import CampaignsForUser from "../CampaignsForUser";
+import CreateCampaign from "../CreateCampaign";
 
 const FundingApp = () => {
   const [contract, setContract] = useState(null);
