@@ -1,24 +1,18 @@
-import { useState } from 'react';
-import { ethers } from 'ethers';
-const useWallet = () => {
 
-  const connectWallet = async () => {
-    try {
-      // Check if MetaMask is installed
-      if (typeof window.ethereum !== 'undefined') {
-        // Connect to the Ethereum network
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
+const UseWallet = async () => {
+  if (window.ethereum) {
+      try {
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+          return accounts[0];
 
-      } else {
-        throw new Error('MetaMask is not installed.');
+      } catch (error) {
+          console.error('Error connecting to MetaMask:', error);
       }
-    } catch (error) {
-      console.error('Error connecting to metamask:', error);
-    }
-  };
-
-  return { connectWallet };
+  } else {
+      console.error('MetaMask extension not detected');
+  }
 };
 
-export default useWallet;
+
+export default UseWallet;

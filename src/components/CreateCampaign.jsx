@@ -1,7 +1,6 @@
 import React, { useState , useEffect} from 'react';
 import { ethers } from 'ethers';
 import FormField from './form';
-import GetVerifierContract from './GetVerifierContract';
 import GetDonateContract from './GetDonateContract';
 
 const CreateCampaign = () => {
@@ -14,20 +13,15 @@ const CreateCampaign = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [contract, setContract] = useState(null);
-  const [verifier, setVerifier] = useState(null);
 
   useEffect(() => {
     const fetchContract = async () => {
         try {
             const contractInstance = await GetDonateContract(); 
             setContract(contractInstance); 
-
-            const verifierInstance = await GetVerifierContract(); 
-            setVerifier(verifierInstance); 
         } catch (error) {
             console.error('Error fetching contract:', error);
         }
-
     }
     fetchContract();
     

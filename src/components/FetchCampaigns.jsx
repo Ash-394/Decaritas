@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import GetDonateContract from './GetDonateContract';
+import UseWallet from './useWallet';
 
 const CampaignsByDonator = ({ userAddress }) => {
 const [contract, setContract] = useState(null);
-  const [campaigns, setCampaigns] = useState([]);
+
   const [donatedCampaigns, setDonatedCampaigns] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [accounts, setAccounts] = useState(null);
+  const [title, setTitle] = useState([]);
+  const [description, setDescription] = useState([]);
+  const [donationsList, setDonationsList] = useState([]);
+  
+
 
   useEffect(() => {
     const fetchContract = async () => {
         try {
             const contractInstance = await GetDonateContract(); 
             setContract(contractInstance); 
+            const account = await UseWallet();
+            setAccounts(account);
         } catch (error) {
             console.error('Error fetching contract:', error);
         }
@@ -22,20 +31,51 @@ const [contract, setContract] = useState(null);
     
 },[])
   
+useEffect(() => {
+  const fetchCampaignDetails = async () => {
+    try {
+      if (contract) {
+        const numberOfCampaigns = await contract.numberOfCampaigns();
+        const titlelist = [];
+        const descriptionlist = [];
+        for (let i = 1; i <= numberOfCampaigns; i++) {
+          const t = await contract.title(i);
+          titlelist.push(t);
+          const d = await contract.description(i);
+          descriptionlist.push(d);
+          
+        }
+        setTitle(titlelist);
+        setDescription(descriptionlist);
+        
+      }
+    } catch (error) {
+      console.error('Error fetching campaign details:', error);
+    }
+  };
+
+  fetchCampaignDetails();
+}, [contract]);
 
   useEffect(() => {
     const fetchDonatedCampaigns = async () => {
       try {
-        if(contract){
-            const campaignIds = await contract.getCampaignsByDonator('0x9B3f5942297F724F62DE8e2efF8C2430E159C62C');
-            const campaigns = await Promise.all(campaignIds.map(async () => {
-              const campaign = await contract.getCampaigns();
-              return campaign;
-            }));
-            setDonatedCampaigns(campaigns);
+        if(contract && accounts){
+            const donatedCampaigns = await contract.getCampaignsByDonator(accounts);
+            const numberOfCampaigns = await contract.numberOfCampaigns();
+            setDonatedCampaigns(donatedCampaigns);
+            const donations = [];
+            for (let i = 1; i <= numberOfCampaigns; i++) {
+              const donationAmount = await contract.donationsByUser(accounts, i);
+              const d = ethers.formatUnits(donationAmount.toString())
+              if (d > 0){
+                donations.push(d);
+              }
+              
+            }
+            setDonationsList(donations);
         }
-       
-        console.log(donatedCampaigns[0])
+      
       } catch (error) {
         console.error('Error fetching donated campaigns:', error);
       }
@@ -46,7 +86,8 @@ const [contract, setContract] = useState(null);
     } else {
       console.error('Ethereum provider not found.');
     }
-  }, [contract]);
+  }, [contract , accounts]);
+
 
 
   return (
@@ -80,19 +121,19 @@ const [contract, setContract] = useState(null);
         </tr>
       </thead>
       <tbody className="bg-white divide-y divide-gray-200">
-        {donatedCampaigns !== undefined && donatedCampaigns[0] !== undefined && donatedCampaigns[0].map((campaign, index) => (
+        {donatedCampaigns.map((campaign, index) => (
           <tr key={index}>
             <td className="px-6 py-4 whitespace-nowrap">
-              <div className="text-sm text-gray-900">{campaign.title}</div>
+              <div className="text-sm text-gray-900">{title[index]}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
-              <div className="text-sm text-gray-900">{campaign.description}</div>
+              <div className="text-sm text-gray-900">{description[index]}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
               <div className="text-sm text-gray-900">{campaign.owner}</div>
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
-              <div className="text-sm text-gray-900">{'$' + (ethers.formatUnits(campaign.amountCollected.toString()))} </div>
+              <div className="text-sm text-gray-900">{'$' + donationsList[index]} </div>
             </td>
           </tr>
         ))}
