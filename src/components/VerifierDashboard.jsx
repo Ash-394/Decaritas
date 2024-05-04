@@ -3,6 +3,8 @@ import { ethers } from 'ethers';
 import CampaignCard from './CampaignCard';
 import GetDonateContract from './GetDonateContract';
 import ProfileCard from './ProfileCard';
+import UseWallet from './useWallet';
+
 
 
 function VerifierDashboard() {
@@ -10,15 +12,18 @@ function VerifierDashboard() {
   const [approvedCampaigns, setApprovedCampaigns] = useState([]);
   const [pendingCampaigns, setPendingCampaigns] = useState([]);
   const [contract, setContract] = useState(null);
-  const [numberOfCampaigns, setNumberOfCampaigns] = useState(0);
   const [balance, setBalance] = useState(0);
   const [provider, setProvider] = useState(null);
+  const [accounts, setAccounts] = useState(null);
+
 
   useEffect(() => {
     const fetchContract = async () => {
         try {
             const contractInstance = await GetDonateContract();
             setContract(contractInstance);
+            const account = await UseWallet();
+            setAccounts(account);
 
         } catch (error) {
             console.error('Error fetching contract:', error);
@@ -41,10 +46,13 @@ useEffect(() => {
         }
           
         if (provider) {
-        const address = '0x373DC81415FcB8ded4Bd13BfC73219f6d9845Be8';
-        const bal = await provider.getBalance(address);
+        const address = accounts;
+        if (address){
+          const bal = await provider.getBalance(address);
         const etherBalance = ethers.formatEther(bal.toString());
         setBalance(etherBalance);
+        }
+        
       }
     } catch (error) {
       console.error('Error fetching balance:', error);
@@ -52,7 +60,7 @@ useEffect(() => {
   };
 
   fetchBalance();
-}, [contract]);
+}, [contract, accounts]);
 
 
 
@@ -61,11 +69,9 @@ useEffect(() => {
       try {
           const allCampaigns = await contract.getCampaigns();
           setCampaigns(allCampaigns);
-          const count = await contract.numberOfCampaigns();
-          const c = count.toString();
-          setNumberOfCampaigns(c);
+          const now = Math.floor(Date.now() / 1000); 
           const approved = allCampaigns.filter(campaign => campaign.approved);
-          const pending = allCampaigns.filter(campaign => !campaign.approved);
+          const pending = allCampaigns.filter(campaign => !campaign.approved && campaign.deadline >= now);
 
           setApprovedCampaigns(approved);
           setPendingCampaigns(pending);
@@ -79,13 +85,11 @@ useEffect(() => {
     fetchCampaigns();
   }, [contract, campaigns]);
 
-  const approveCampaign = async (index) => {
+  const approveCampaign = async (owner,uniqueId) => {
     try {
       if (contract) {
         // Call the approve function of your contract
-
-        const _id = numberOfCampaigns - pendingCampaigns.length + index + 1;
-        console.log(numberOfCampaigns)
+        const _id  = await contract.getCampaignIndex(owner,uniqueId);
         await contract.approve(_id);
 
       }
@@ -99,7 +103,7 @@ useEffect(() => {
     <div className="container mx-auto px-4 py-8 bg-cover bg-center w-full "  style={{ backgroundImage: "url('https://images.pexels.com/photos/4319805/pexels-photo-4319805.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
       <ProfileCard
         name="Verifier"
-        walletAddress="0x373DC81415FcB8ded4Bd13BfC73219f6d9845Be8"
+        walletAddress={accounts}
         balance={balance}
       />
 
@@ -107,16 +111,16 @@ useEffect(() => {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> 
       {pendingCampaigns.map((campaign,index) => (
         <li key={index} className="border p-4">
-          <CampaignCard campaign={campaign} index ={index} />
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={() => approveCampaign(index)}>Approve</button>
-          </li>
+           <CampaignCard campaign={campaign} />
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={() => approveCampaign(campaign[0], campaign.uniqueId)}>Approve</button>
+      </li>
       ))}
       </ul>
       <h2 className="text-2xl font-bold mt-8 mb-4">Approved Approvals</h2>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {approvedCampaigns.map((campaign, index) => (
         <li key={index} className="border p-4">
-          <CampaignCard campaign={campaign} index ={index} />
+          <CampaignCard campaign={campaign} />
         </li>
       ))}
       </ul>

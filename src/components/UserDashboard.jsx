@@ -39,7 +39,8 @@ useEffect(() => {
           const allCampaigns = await contract.getCampaigns();
 
           setCampaigns(allCampaigns);
-          const approved = allCampaigns.filter(campaign => campaign.approved);
+          const now = Math.floor(Date.now() / 1000); 
+          const approved = allCampaigns.filter(campaign => campaign.approved && campaign.deadline >= now);
 
           setApprovedCampaigns(approved);
       } catch (error) {
@@ -58,14 +59,16 @@ const handleDonationChange = (index, value) => {
     ...donationValues,
     [index]: value,
   });
+  
 }
-const donateToCampaign = async (campaignId, value) => {
+const donateToCampaign = async (owner, uniqueId, value) => {
   try {
     const overrides = {
       value: ethers.parseEther(value),
     };
+    
 
-    const _id  = campaignId + 1;
+    const _id  = await contract.getCampaignIndex(owner,uniqueId);
 
     await contract.donateToCampaign(_id, overrides);
 
@@ -89,19 +92,20 @@ const donateToCampaign = async (campaignId, value) => {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {approvedCampaigns.map((campaign, index) => (
           <li key={index} className="border p-4">
-            <CampaignCard campaign={campaign} index ={index} />
+            <CampaignCard campaign={campaign} />
             <div className="flex items-center m-2">
             <label className="mr-2">Amount(ETH):</label>
             <input
               className="border border-gray-300 rounded px-2 py-1 mr-2"
-              value={donationValues[index]}
+              value={donationValues[index] || ''}
               onChange={(e) => handleDonationChange(index, e.target.value)}
             />
 
           </div>
           
           <div className='mt-3 mb-3 flex items-center justify-evenly'>
-            <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => donateToCampaign(index, donationValues[index])}>DONATE</button>
+            <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' 
+            onClick={() => donateToCampaign(campaign[0], campaign.uniqueId, donationValues[index])}>DONATE</button>
           </div>
           </li>
         ))}

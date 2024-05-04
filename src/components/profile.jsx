@@ -5,7 +5,6 @@ function Profile() {
     const [showOrg, setShowOrg] = useState(false);
     const [showUser, setShowUser] = useState(false);
     const [showVerifier, setShowVerifier] = useState(false);
-    const [contract, setContract] = useState(null);
     const [accounts, setAccounts] = useState(null); 
     const navigate = useNavigate();
 

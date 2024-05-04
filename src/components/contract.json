@@ -41,6 +41,11 @@
 				},
 				{
 					"internalType": "uint256",
+					"name": "uniqueId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
 					"name": "target",
 					"type": "uint256"
 				},
@@ -77,32 +82,13 @@
 			"inputs": [
 				{
 					"internalType": "address",
-					"name": "",
+					"name": "_owner",
 					"type": "address"
 				},
 				{
 					"internalType": "uint256",
-					"name": "",
+					"name": "_uniqueId",
 					"type": "uint256"
-				}
-			],
-			"name": "campaignsByOwner",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_owner",
-					"type": "address"
 				},
 				{
 					"internalType": "string",
@@ -192,6 +178,30 @@
 			"type": "function"
 		},
 		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_uniqueId",
+					"type": "uint256"
+				}
+			],
+			"name": "getCampaignIndex",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
 			"inputs": [],
 			"name": "getCampaigns",
 			"outputs": [
@@ -206,6 +216,11 @@
 							"internalType": "bool",
 							"name": "approved",
 							"type": "bool"
+						},
+						{
+							"internalType": "uint256",
+							"name": "uniqueId",
+							"type": "uint256"
 						},
 						{
 							"internalType": "uint256",
@@ -280,6 +295,11 @@
 						},
 						{
 							"internalType": "uint256",
+							"name": "uniqueId",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
 							"name": "target",
 							"type": "uint256"
 						},
@@ -348,6 +368,11 @@
 							"internalType": "bool",
 							"name": "approved",
 							"type": "bool"
+						},
+						{
+							"internalType": "uint256",
+							"name": "uniqueId",
+							"type": "uint256"
 						},
 						{
 							"internalType": "uint256",

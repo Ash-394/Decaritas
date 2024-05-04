@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import CampaignCard from './CampaignCard';
+import CampaignCard from '../CampaignCard';
 
 const CampaignsForUser = ({ contract }) => {
   const [campaigns, setCampaigns] = useState([]);

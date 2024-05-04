@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import VerifierContract from './verifier.json'; 
+import VerifierContract from '../verifier.json'; 
 
 
 const GetVerifierContract = async () => {

@@ -7,10 +7,10 @@ const CreateCampaign = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [ownerAddress, setOwnerAddress] = useState('');
+  const [uniqueId, setUniqueId] = useState('');
   const [target, setTarget] = useState('');
   const [deadline, setDeadline] = useState('');
   const [image, setImage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [contract, setContract] = useState(null);
 
@@ -34,6 +34,7 @@ const CreateCampaign = () => {
 
       await contract.createCampaign(
         ownerAddress,
+        uniqueId,
         title,
         description,
         parsedTarget,
@@ -44,16 +45,16 @@ const CreateCampaign = () => {
       console.log('Campaign requested for approval');
       // Clear form fields after successful request
       setTitle('');
+      setUniqueId('')
       setDescription('');
       setTarget('');
       setDeadline('');
       setImage('');
       setOwnerAddress('');
-      setErrorMessage('');
       setShowModal(false);
     } catch (error) {
+      alert("invalid request");
       console.error('Error requesting campaign approval:', error.message);
-      setErrorMessage(error.message);
     }
   };
   
@@ -84,6 +85,13 @@ const CreateCampaign = () => {
               inputType="text"
               value={title}
               handleChange={(e) => setTitle(e.target.value)}
+            />
+            <FormField
+              labelName="Uniqueid:"
+              placeholder="Enter unique ID"
+              inputType="text"
+              value={uniqueId}
+              handleChange={(e) => setUniqueId(e.target.value)}
             />
             <FormField
               labelName="Description:"

@@ -14,6 +14,7 @@ const OrganizationPage = () => {
     const [contract, setContract] = useState(null);
     const [accounts, setAccounts] = useState(null);
     const [totalAmountCollected, setTotalAmountCollected] = useState(0);
+    const [campaignCount, setCampaignCount] = useState(0);
 
 
 
@@ -40,6 +41,10 @@ const OrganizationPage = () => {
                 if (accounts) {
                     const allCampaigns = await contract.getCampaignsByOwner(accounts);
                     setCampaigns(allCampaigns);
+                    const amount = await contract.getTotalAmountCollected(accounts);
+                    setTotalAmountCollected(amount);
+                    const count = await contract.getNumberOfCampaignsByOwner(accounts);
+                    setCampaignCount(count);
                 }
 
             } catch (error) {
@@ -72,18 +77,18 @@ const OrganizationPage = () => {
     }, [campaigns]);
 
 
-    const withdrawFunds = async (campaignId) => {
+    const withdrawFunds = async (owner,uniqueId, ind) => {
         try {
             if (contract) {
                 // Withdraw funds from the campaign
-                const _id = campaignId + 1;
-                if (ongoingCampaigns[campaignId].balance.toString() === '0') {
+                const _id  = await contract.getCampaignIndex(owner,uniqueId);
+                if (ongoingCampaigns[ind].balance.toString() === '0') {
 
                     alert("balance zero")
                     return;
                 }
-                if (ongoingCampaigns[campaignId].balance < ongoingCampaigns[campaignId].verifierFee) {
-                    console.log(ongoingCampaigns[campaignId].balance.toString())
+                if (ongoingCampaigns[ind].balance < ongoingCampaigns[ind].verifierFee) {
+                    console.log(ongoingCampaigns[ind].balance.toString())
                     console.log('Fund collected is very less - should be greater than verifier feee');
                     alert("insuffient balance")
                     return;
@@ -91,7 +96,7 @@ const OrganizationPage = () => {
                 await contract.withdrawFunds(_id);
                 console.log('Funds withdrawn from campaign', _id);
             } else {
-                console.error('Donate contract not available');
+                console.error('contract not available');
             }
         } catch (error) {
             console.error('Error withdrawing funds:', error);
@@ -107,6 +112,8 @@ const OrganizationPage = () => {
                 <div className="mt-16">
                     <ProfileCard name='Old Paradise' walletAddress='0x1a89fC3068535785D8d59EE9a2e7b526134dE60F' location='DELHI'
                     />
+                    <div className="mt-16">Total Amount Collected : $ {ethers.formatUnits(totalAmountCollected.toString())} <br></br> Number Of Campaigns : {campaignCount.toString()}</div>
+                   
                     <div className="mt-16"><CreateCampaign /></div>
 
                 </div>
@@ -118,9 +125,9 @@ const OrganizationPage = () => {
                         <h3 className="text-xl font-bold mb-2">Ongoing Campaigns</h3>
                         {ongoingCampaigns.map((campaign, index) => (
                             <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2">
-                                <div> <CampaignCard campaign={campaign} index ={index}></CampaignCard> </div>
+                                <div> <CampaignCard campaign={campaign} ></CampaignCard> </div>
                                 <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
-                                <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
+                                <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(campaign[0], campaign.uniqueId, index)}>Withdraw Funds</button>
                             </div>
                         ))
                         }
@@ -131,7 +138,7 @@ const OrganizationPage = () => {
                         <h3 className="text-xl font-bold mb-2">Closed Campaigns</h3>
                         {closedCampaigns.map((campaign, index) => (
                             <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2">
-                                <div> <CampaignCard campaign={campaign} index ={index}></CampaignCard> </div>
+                                <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
                                 <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
                                 <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
                             </div>
