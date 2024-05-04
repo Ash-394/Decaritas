@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router} from 'react-router-dom';
-import useWallet from './useWallet';
 import AppRoutes from './AppRoutes';
 
 const Nav = () => {
@@ -13,12 +12,6 @@ const Nav = () => {
 
   ];
   let [open, setOpen] = useState(false);
-
-
-  const { connectWallet } = useWallet();
-  const handleConnectWallet = async () => {
-    await connectWallet();
-  };
 
   return (
 

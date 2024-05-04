@@ -86,7 +86,6 @@ function CampaignCard({ campaign }) {
 
 
   return (
-
     <div className="card">
 
       {title[index - 1] !== undefined && <h3 className="text-lg font-semibold">{title[index - 1]}</h3>}
