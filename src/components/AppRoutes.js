@@ -8,6 +8,8 @@ import About from './About';
 import UserDashboard from './UserDashboard';
 import VerifierDashboard from './VerifierDashboard';
 import CampaignsByDonator from './FetchCampaigns';
+import Signup from './signup';
+import Login from './login';
 const AppRoutes = () => {
   return (
     <Routes>
@@ -19,6 +21,9 @@ const AppRoutes = () => {
       <Route path="/user" element={<UserDashboard />} />
       <Route path="/verifier" element={<VerifierDashboard />} />
       <Route path="/fetch" element ={<CampaignsByDonator/>}/>
+      <Route path="/login" element ={<Login/>}/>
+      <Route path="/signup" element ={<Signup/>}/>
+
 
     
     </Routes>

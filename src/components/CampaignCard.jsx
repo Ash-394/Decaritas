@@ -15,6 +15,7 @@ function CampaignCard({ campaign }) {
       try {
         const contractInstance = await GetDonateContract();
         setContract(contractInstance);
+        console.log("why", contract)
 
       } catch (error) {
         console.error('Error fetching contract:', error);

@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": "b420",
+      "email": "ashi18pulari@gmail.com",
+      "password": "AS"
+    },
+    {
+      "id": "7461",
+      "email": "ashi18pulari@gmail.com",
+      "password": "asd",
+      "walletAddress": "0x373dc81415fcb8ded4bd13bfc73219f6d9845be8"
+    }
+  ]
+}
