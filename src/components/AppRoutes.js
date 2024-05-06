@@ -10,6 +10,7 @@ import VerifierDashboard from './VerifierDashboard';
 import CampaignsByDonator from './FetchCampaigns';
 import Signup from './signup';
 import Login from './login';
+import OrgLogin from './orgLogin';
 const AppRoutes = () => {
   return (
     <Routes>
@@ -23,6 +24,7 @@ const AppRoutes = () => {
       <Route path="/fetch" element ={<CampaignsByDonator/>}/>
       <Route path="/login" element ={<Login/>}/>
       <Route path="/signup" element ={<Signup/>}/>
+      <Route path="/orglogin" element ={<OrgLogin/>}/>
 
 
     

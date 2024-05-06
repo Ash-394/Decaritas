@@ -55,7 +55,8 @@ const userService = {
         throw new Error('Failed to fetch user data');
       }
       const users = await response.json();
-      return users[0]; 
+      const user = users.find(u => u.walletAddress === walletAddress );
+      return user; 
     } catch (error) {
       console.error('Error fetching user data:', error);
       throw error;

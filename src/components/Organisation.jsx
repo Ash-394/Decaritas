@@ -5,6 +5,7 @@ import GetDonateContract from './GetDonateContract';
 import CreateCampaign from './CreateCampaign';
 import { ethers } from 'ethers';
 import UseWallet from './useWallet';
+import orgService from '../service/orgservice';
 
 const OrganizationPage = () => {
 
@@ -15,7 +16,8 @@ const OrganizationPage = () => {
     const [accounts, setAccounts] = useState(null);
     const [totalAmountCollected, setTotalAmountCollected] = useState(0);
     const [campaignCount, setCampaignCount] = useState(0);
-
+    const [name, setName] = useState(null);
+    const [location, setLocation] = useState(null);
 
 
     useEffect(() => {
@@ -34,6 +36,26 @@ const OrganizationPage = () => {
         fetchContract();
 
     }, [])
+
+    useEffect(() => {
+        const handleOrg = async () => {
+          try {
+            const user = await orgService.getOrgByWalletAddress(accounts);
+            console.log(user)
+            if (user){
+              const username = user.orgname;
+              setName(username);
+              const loc = user.location;
+              setLocation(loc);
+
+            }
+      
+          } catch (error) {
+            console.log("error fetching data");
+          } 
+        };
+        handleOrg();
+      }, [accounts]);
 
     useEffect(() => {
         const fetchCampaigns = async () => {
@@ -110,7 +132,7 @@ const OrganizationPage = () => {
 
             <div className="w-1/2 p-6 ">
                 <div className="mt-16">
-                    <ProfileCard name='Old Paradise' walletAddress='0x1a89fC3068535785D8d59EE9a2e7b526134dE60F' location='DELHI'
+                    <ProfileCard name={name} walletAddress={accounts} location={location}
                     />
                     <div className="mt-16">Total Amount Collected : $ {ethers.formatUnits(totalAmountCollected.toString())} <br></br> Number Of Campaigns : {campaignCount.toString()}</div>
                    
