@@ -1,5 +1,3 @@
-import react from "react";
-import BannerBackground from "../Assets/900.png";
 import BannerImage from '../Assets/202.png';
 import { FiArrowRight } from "react-icons/fi";
 
@@ -9,10 +7,6 @@ const Home = () => {
         
         
         <div className="home-banner-container">
-          
-          <div className="home-bannerImage-container">
-
-          </div>
           <div className="home-text-section">
             <h1 className="primary-heading">
               de-Caritas
