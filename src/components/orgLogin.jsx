@@ -41,10 +41,11 @@ const OrgLogin = () => {
   };
 
   return (
+    <div className="container mx-auto px-4 py-4 bg-cover bg-center w-full h-screen " style={{ backgroundImage: "url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
     <Container component="main" maxWidth="xs">
-      <div className="container">
-        <Typography component="h1" variant="h5">
-          Login
+      <div className="container mt-12">
+        <Typography className = "flex justify-center "  component="h1" variant="h5">
+          Organisation Login
         </Typography>
         <Formik
           initialValues={{ email: '', password: '', orgId: '' }}
@@ -93,6 +94,7 @@ const OrgLogin = () => {
         </Formik>
       </div>
     </Container>
+    </div>
   );
 };
 

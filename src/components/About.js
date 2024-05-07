@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="bg-cover bg-center w-full h-screen" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+    <div className=" mx-auto px-4 py-4  bg-cover bg-center w-full h-screen" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
       
       <div className="text-center mx-auto max-w-[50%] ">
   <p className="text-3xl font-bold mt-2 mb-4 font-sans">About Us</p>
@@ -15,7 +15,7 @@ const About = () => {
     At de-Caritas, we envision a world where every donation is traceable, accountable, and impactful. By leveraging blockchain technology, we aim to revolutionize the way charitable giving is managed and perceived, fostering trust and transparency within the global philanthropic community.
   </p>
   <div>
-    <button className="bg-orange-500 text-white px-4 py-2 rounded-md">Learn More</button>
+    <button className="bg-orange-500 text-white px-8 py-2 mt-4 rounded-full">Learn More</button>
   </div>
 </div>
 
