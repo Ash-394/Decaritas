@@ -18,21 +18,21 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About/>} />
+      <Route path="/about" element={<About />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/org" element={<OrganizationPage />} />
-      <Route path="/contact" element={<Contact/>}/>
+      <Route path="/contact" element={<Contact />} />
       <Route path="/user" element={<UserDashboard />} />
       <Route path="/verifier" element={<VerifierDashboard />} />
-      <Route path="/fetch" element ={<CampaignsByDonator/>}/>
-      <Route path="/login" element ={<Login/>}/>
-      <Route path="/signup" element ={<Signup/>}/>
-      <Route path="/orglogin" element ={<OrgLogin/>}/>
-      <Route path="/verifierlogin" element ={<VerifierLogin/>}/>
-      <Route path="/loginmain" element ={<LoginOptions/>}/>
+      <Route path="/fetch" element={<CampaignsByDonator />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/orglogin" element={<OrgLogin />} />
+      <Route path="/verifierlogin" element={<VerifierLogin />} />
+      <Route path="/loginmain" element={<LoginOptions />} />
 
 
-    
+
     </Routes>
   );
 };

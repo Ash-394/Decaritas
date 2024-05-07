@@ -10,8 +10,8 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().required('Required'),
   confirmPassword: Yup.string()
-     .oneOf([Yup.ref('password'), null], 'Passwords must match')
-     .required('Required')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Required')
 });
 
 const Signup = () => {
@@ -21,7 +21,7 @@ const Signup = () => {
 
   const handleConnectWallet = async () => {
     const account = await UseWallet();
-    setConnectedWallet(account); // Example: set the connected wallet address here
+    setConnectedWallet(account);
   };
 
   const handleSignup = async (values, { setSubmitting }) => {
@@ -45,7 +45,7 @@ const Signup = () => {
           Sign Up
         </Typography>
         <Formik
-          initialValues={{ email: '', password: '', confirmPassword: ''}}
+          initialValues={{ email: '', password: '', confirmPassword: '' }}
           validationSchema={SignupSchema}
           onSubmit={handleSignup}
         >
@@ -78,13 +78,13 @@ const Signup = () => {
               )}
               <div className='mt-6'></div>
               {connectedWallet ? (
-              <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={isSubmitting}>
-                Sign Up
-              </Button>
-              ) :(
+                <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={isSubmitting}>
+                  Sign Up
+                </Button>
+              ) : (
                 <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={true}>
-                Sign Up
-              </Button>
+                  Sign Up
+                </Button>
               )}
             </Form>
           )}

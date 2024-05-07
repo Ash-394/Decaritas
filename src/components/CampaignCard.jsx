@@ -15,7 +15,6 @@ function CampaignCard({ campaign }) {
       try {
         const contractInstance = await GetDonateContract();
         setContract(contractInstance);
-        console.log("why", contract)
 
       } catch (error) {
         console.error('Error fetching contract:', error);
@@ -68,7 +67,7 @@ function CampaignCard({ campaign }) {
     };
 
     fetchIndex();
-  }, [contract,campaign.owner, campaign.uniqueId]);
+  }, [contract, campaign.owner, campaign.uniqueId]);
 
   const formatTimestamp = (timestamp) => {
     const milliseconds = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds

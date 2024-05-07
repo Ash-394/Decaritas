@@ -39,23 +39,23 @@ const OrganizationPage = () => {
 
     useEffect(() => {
         const handleOrg = async () => {
-          try {
-            const user = await orgService.getOrgByWalletAddress(accounts);
-            console.log(user)
-            if (user){
-              const username = user.orgname;
-              setName(username);
-              const loc = user.location;
-              setLocation(loc);
+            try {
+                const user = await orgService.getOrgByWalletAddress(accounts);
+                console.log(user)
+                if (user) {
+                    const username = user.orgname;
+                    setName(username);
+                    const loc = user.location;
+                    setLocation(loc);
 
+                }
+
+            } catch (error) {
+                console.log("error fetching data");
             }
-      
-          } catch (error) {
-            console.log("error fetching data");
-          } 
         };
         handleOrg();
-      }, [accounts]);
+    }, [accounts]);
 
     useEffect(() => {
         const fetchCampaigns = async () => {
@@ -99,11 +99,11 @@ const OrganizationPage = () => {
     }, [campaigns]);
 
 
-    const withdrawFunds = async (owner,uniqueId, ind) => {
+    const withdrawFunds = async (owner, uniqueId, ind) => {
         try {
             if (contract) {
                 // Withdraw funds from the campaign
-                const _id  = await contract.getCampaignIndex(owner,uniqueId);
+                const _id = await contract.getCampaignIndex(owner, uniqueId);
                 if (ongoingCampaigns[ind].balance.toString() === '0') {
 
                     alert("balance zero")
@@ -135,7 +135,7 @@ const OrganizationPage = () => {
                     <ProfileCard name={name} walletAddress={accounts} location={location}
                     />
                     <div className="mt-16">Total Amount Collected : $ {ethers.formatUnits(totalAmountCollected.toString())} <br></br> Number Of Campaigns : {campaignCount.toString()}</div>
-                   
+
                     <div className="mt-16"><CreateCampaign /></div>
 
                 </div>
@@ -160,14 +160,14 @@ const OrganizationPage = () => {
                         <h3 className="text-xl font-bold mb-2">Closed Campaigns</h3>
                         {closedCampaigns.map((campaign, index) => (
                             <div>
-                            {campaign[0] !== "0x0000000000000000000000000000000000000000" &&  
-                            <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2">
-                                <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
-                                
-                                <div> <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
-                                <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
-                                </div>
-                            </div>}
+                                {campaign[0] !== "0x0000000000000000000000000000000000000000" &&
+                                    <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2">
+                                        <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
+
+                                        <div> <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
+                                            <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
+                                        </div>
+                                    </div>}
                             </div>
                         ))
                         }

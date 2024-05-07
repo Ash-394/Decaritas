@@ -19,18 +19,18 @@ const Login = () => {
 
   const handleConnectWallet = async () => {
     const account = await UseWallet();
-    setConnectedWallet(account); 
+    setConnectedWallet(account);
   };
 
 
   const handleLogin = async (values, { setSubmitting }) => {
     try {
       const user = await userService.login(values.email, values.password, connectedWallet);
-      if (user){
+      if (user) {
         alert("User logged in successfully!");
         navigate('/user');
       }
-      else{
+      else {
         alert("User does not exist!");
       }
     } catch (error) {
@@ -78,13 +78,13 @@ const Login = () => {
               )}
               <div className='mt-6'></div>
               {connectedWallet ? (
-              <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={isSubmitting}>
-                Login
-              </Button>
-              ) :(
-                <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled = {true} >
-                Login
-              </Button>
+                <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={isSubmitting}>
+                  Login
+                </Button>
+              ) : (
+                <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={true} >
+                  Login
+                </Button>
               )}
             </Form>
           )}

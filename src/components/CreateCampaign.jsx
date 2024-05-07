@@ -29,7 +29,7 @@ const CreateCampaign = () => {
 
   const createCampaign = async () => {
     try {
-      const parsedTarget = ethers.parseEther(target.toString()); // Convert to wei
+      const parsedTarget = ethers.parseEther(target.toString()); 
       const parsedDeadline = Math.floor(new Date(deadline).getTime() / 1000); // Convert deadline to UNIX timestamp
 
       await contract.createCampaign(

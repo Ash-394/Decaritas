@@ -8,7 +8,7 @@ import UseWallet from './useWallet';
 import userService from '../service/userservice';
 
 
-function UserDashboard({user}) {
+function UserDashboard() {
   const [contract, setContract] = useState(null);
   const [campaigns, setCampaigns] = useState([]);
   const [donationValues, setDonationValues] = useState({});
@@ -33,8 +33,6 @@ function UserDashboard({user}) {
 
   }, [])
 
-
-
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
@@ -58,20 +56,20 @@ function UserDashboard({user}) {
   }, [contract, campaigns]);
 
   useEffect(() => {
-  const handleUser = async () => {
-    try {
-      const user = await userService.getUserByWalletAddress(accounts);
-      if (user){
-        const username = user.email;
-        setName(username);
-      }
+    const handleUser = async () => {
+      try {
+        const user = await userService.getUserByWalletAddress(accounts);
+        if (user) {
+          const username = user.email;
+          setName(username);
+        }
 
-    } catch (error) {
-      console.log("error fetching data");
-    } 
-  };
-  handleUser();
-}, [accounts]);
+      } catch (error) {
+        console.log("error fetching data");
+      }
+    };
+    handleUser();
+  }, [accounts]);
 
 
   const handleDonationChange = (index, value) => {

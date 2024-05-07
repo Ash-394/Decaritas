@@ -19,20 +19,20 @@ const OrgLogin = () => {
 
   const handleConnectWallet = async () => {
     const account = await UseWallet();
-    setConnectedWallet(account); 
+    setConnectedWallet(account);
   };
 
 
   const handleLogin = async (values, { setSubmitting }) => {
     try {
       const user = await orgService.login(values.email, values.password, values.orgId, connectedWallet);
-      if (user){
+      if (user) {
         alert(" Organisation logged in successfully!");
         navigate('/org');
       }
-      else{
+      else {
         alert("Organisation does not exist!");
-      }  
+      }
     } catch (error) {
       console.error('Error logging in:', error);
     } finally {
@@ -57,7 +57,7 @@ const OrgLogin = () => {
               <ErrorMessage name="email" component="div" />
               <Field as={TextField} variant="outlined" margin="normal" fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
               <ErrorMessage name="password" component="div" />
-              <Field as={TextField} variant="outlined" margin="normal" fullWidth name="orgId" label="OrgId" type="text" id="orgId"  />
+              <Field as={TextField} variant="outlined" margin="normal" fullWidth name="orgId" label="OrgId" type="text" id="orgId" />
               <ErrorMessage name="orgId" component="div" />
               {connectedWallet ? (
                 <TextField
@@ -80,13 +80,13 @@ const OrgLogin = () => {
               )}
               <div className='mt-6'></div>
               {connectedWallet ? (
-              <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={isSubmitting}>
-                Login
-              </Button>
-              ) :(
-                <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled = {true} >
-                Login
-              </Button>
+                <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={isSubmitting}>
+                  Login
+                </Button>
+              ) : (
+                <Button type="submit" fullWidth variant="contained" color="primary" className="submit" disabled={true} >
+                  Login
+                </Button>
               )}
             </Form>
           )}

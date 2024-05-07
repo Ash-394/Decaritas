@@ -5,7 +5,6 @@ const Home = () => {
     return (
       <div className="home-container bg-cover bg-center w-full h-screen"  style={{ backgroundImage: "url('https://images.pexels.com/photos/4321069/pexels-photo-4321069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
         
-        
         <div className="home-banner-container">
           <div className="home-text-section">
             <h1 className="primary-heading">
