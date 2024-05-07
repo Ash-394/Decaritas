@@ -23,6 +23,7 @@ contract Decaritas {
     mapping(address => mapping(uint256 => uint256)) public donationsByUser;
     address owner;
     uint256 public numberOfCampaigns = 0;
+    uint256 public verifierFeeCollected = 0;
 
 
     constructor() {
@@ -199,7 +200,7 @@ contract Decaritas {
         uint256 amountToWithdraw = campaign.balance - campaign.verifierFee;
         campaign.balance = 0;
 
-
+        verifierFeeCollected += campaign.verifierFee;
         // Transfer funds to the campaign owner
         payable(msg.sender).transfer(amountToWithdraw);
         payable(owner).transfer(campaign.verifierFee);
@@ -232,7 +233,7 @@ contract Decaritas {
 
 
         for (uint256 i = 1; i <= numberOfCampaigns; i++) {
-            if (campaigns[i].owner == _owner) {
+            if (campaigns[i].owner == _owner && campaigns[i].approved) {
                 count++;
             }
         }
