@@ -18,7 +18,7 @@
       "id": "c420",
       "orgname": "Old Paradise",
       "email": "oldparadise@gmail.com",
-      "password": "asf",
+      "password": "old",
       "orgId": "234",
       "walletAddress": "0x1a89fc3068535785d8d59ee9a2e7b526134de60f",
       "location": "MUMBAI"
@@ -26,9 +26,9 @@
     {
       "id": "J420",
       "orgname": "Helping hand",
-      "email": "ashi18pulari@gmail.com",
-      "password": "asf",
-      "orgId": "234",
+      "email": "helpinghand@gmail.com",
+      "password": "new",
+      "orgId": "437",
       "walletAddress": "0x373dc81415fcb8ded4bd13bfc73219f6d9845be8",
       "location": "DELHI"
     }
