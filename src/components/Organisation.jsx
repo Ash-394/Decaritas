@@ -128,13 +128,13 @@ const OrganizationPage = () => {
 
 
     return (
-        <div className="flex justify-center overflow-y-scroll bg-cover bg-center w-full h-screen" style={{ backgroundImage: "url('https://images.pexels.com/photos/4319805/pexels-photo-4319805.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
+        <div className="flex justify-center overflow-y-scroll bg-cover bg-center w-full h-screen" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
 
             <div className="w-1/2 p-6 ">
                 <div className="mt-16">
                     <ProfileCard name={name} walletAddress={accounts} location={location}
                     />
-                    <div className="mt-16">Total Amount Collected : $ {ethers.formatUnits(totalAmountCollected.toString())} <br></br> Number Of Campaigns : {campaignCount.toString()}</div>
+                    <div className="mt-16 text-lg font-sans">Total Amount Collected : $ {ethers.formatUnits(totalAmountCollected.toString())} <br></br> Number Of Campaigns : {campaignCount.toString()}</div>
 
                     <div className="mt-16"><CreateCampaign /></div>
 
@@ -146,10 +146,10 @@ const OrganizationPage = () => {
                     <div className="ongoing-campaigns">
                         <h3 className="text-xl font-bold mb-2">Ongoing Campaigns</h3>
                         {ongoingCampaigns.map((campaign, index) => (
-                            <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2">
+                            <div key={index} className="bg-white shadow-md rounded-lg p-4 m-2 font-sans">
                                 <div> <CampaignCard campaign={campaign} ></CampaignCard> </div>
-                                <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
-                                <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(campaign[0], campaign.uniqueId, index)}>Withdraw Funds</button>
+                                <h1 className='text-sm text-black mb-2 font-sans'>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
+                                <button className='text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(campaign[0], campaign.uniqueId, index)}>Withdraw Funds</button>
                             </div>
                         ))
                         }
@@ -165,7 +165,7 @@ const OrganizationPage = () => {
                                         <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
 
                                         <div> <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
-                                            <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
+                                            <button className='text-white text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(index)}>Withdraw Funds</button>
                                         </div>
                                     </div>}
                             </div>

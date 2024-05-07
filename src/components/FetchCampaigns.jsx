@@ -88,10 +88,9 @@ const CampaignsByDonator = () => {
   return (
     <div className='flex justify-end '>
       <button className='relative inline-flex  p-0.5 mb-2 me-2 
-    overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 
-    group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 
-    dark:focus:ring-purple-800' onClick={() => setShowModal(true)}>
-        <span class="relative px-7 py-2 items-center transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+    overflow-hidden text-sm font-medium 
+    text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm text-center ' onClick={() => setShowModal(true)}>
+        <span class="relative px-7 py-2 items-center transition-all ease-in duration-75 ">
           Transaction History
         </span></button>
       {showModal && (
@@ -101,16 +100,16 @@ const CampaignsByDonator = () => {
             <table className="divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">
                     Title
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">
                     Description
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">
                     Owner
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">
                     Amount Donated
                   </th>
                 </tr>
@@ -119,23 +118,23 @@ const CampaignsByDonator = () => {
                 {donatedCampaigns.map((campaign, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{title[index]}</div>
+                      <div className="text-sm text-gray-900 font-sans">{title[index]}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{description[index]}</div>
+                      <div className="text-sm text-gray-900 font-sans">{description[index]}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{campaign.owner}</div>
+                      <div className="text-sm text-gray-900 font-sans" >{campaign.owner}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{'$' + donationsList[index]} </div>
+                      <div className="text-sm text-gray-900 font-sans">{'$' + donationsList[index]} </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
             <div className='mt-3 mb-3 flex items-center justify-center'>
-              <button className='text-white  bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2' onClick={() => setShowModal(false)}>Close</button>
+              <button className='text-white font-sans  bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2' onClick={() => setShowModal(false)}>Close</button>
             </div>
           </div>
         </div>

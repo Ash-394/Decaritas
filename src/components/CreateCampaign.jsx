@@ -62,10 +62,9 @@ const CreateCampaign = () => {
   return (
     <div className='flex justify-center items-center'>
       <button className='relative inline-flex  p-0.5 mb-2 me-2 
-    overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 
-    group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 
-    dark:focus:ring-purple-800' onClick={() => setShowModal(true)}>
-        <span class="relative px-7 py-2 items-center transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+    overflow-hidden text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 
+    font-lg rounded-lg text-sm px-1.5 py-1.5 text-center me-2 mb-2' onClick={() => setShowModal(true)}>
+        <span class="relative px-7 py-2 items-center transition-all ease-in duration-75 font-bold font-sans">
           Create Campaign
         </span></button>
       {showModal && (
@@ -122,7 +121,7 @@ const CreateCampaign = () => {
               handleChange={(e) => setImage(e.target.value)}
             />
             <div className='mt-3 mb-3 flex items-center justify-evenly'>
-              <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={createCampaign}>Request Approval</button>
+              <button className='text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={createCampaign}>Request Approval</button>
               <button className='text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2' onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>

@@ -97,7 +97,7 @@ function UserDashboard() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-cover bg-center  w-full h-screen " style={{ backgroundImage: "url('https://images.pexels.com/photos/4319805/pexels-photo-4319805.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')" }}>
+    <div className="justify-center container px-4 py-8 bg-cover bg-center  w-full  " style={{ backgroundImage: "url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
       <ProfileCard
         name={name}
         walletAddress={accounts}
@@ -109,9 +109,9 @@ function UserDashboard() {
       <h2 className="text-2xl font-bold mb-4">Campaigns</h2>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {approvedCampaigns.map((campaign, index) => (
-          <li key={index} className="border p-4">
+          <li key={index} className="bg-white shadow-md rounded-lg p-4 m-2 font-sans">
             <CampaignCard campaign={campaign} />
-            <div className="flex items-center m-2">
+            <div className="flex items-center">
               <label className="mr-2">Amount(ETH):</label>
               <input
                 className="border border-gray-300 rounded px-2 py-1 mr-2"
@@ -121,8 +121,8 @@ function UserDashboard() {
 
             </div>
 
-            <div className='mt-3 mb-3 flex items-center justify-evenly'>
-              <button className='text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
+            <div className='mt-3 mb-3 '>
+              <button className='text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
                 onClick={() => donateToCampaign(campaign[0], campaign.uniqueId, donationValues[index])}>DONATE</button>
             </div>
           </li>

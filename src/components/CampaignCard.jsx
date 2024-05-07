@@ -77,10 +77,10 @@ function CampaignCard({ campaign }) {
     const year = dateObject.getFullYear();
     const month = dateObject.getMonth() + 1; // Month starts from 0, so add 1
     const date = dateObject.getDate();
-    const hours = dateObject.getHours();
-    const minutes = dateObject.getMinutes();
-    const seconds = dateObject.getSeconds();
-    const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${date < 10 ? '0' + date : date} ${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+    //const hours = dateObject.getHours();
+    //const minutes = dateObject.getMinutes();
+    //const seconds = dateObject.getSeconds();
+    const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${date < 10 ? '0' + date : date}`;
     return formattedDate;
   };
 
@@ -88,20 +88,20 @@ function CampaignCard({ campaign }) {
   return (
     <div className="card">
 
-      {title[index - 1] !== undefined && <h3 className="text-lg font-semibold">{title[index - 1]}</h3>}
+      {title[index - 1] !== undefined && <h3 className="text-lg font-semibold font-sans">{title[index - 1]}</h3>}
       {description[index - 1] !== undefined &&
-        <p className="text-sm text-gray-600 mb-2"> {description[index - 1]}</p>}
-      {campaign[0] !== undefined && <p className="text-sm text-black mb-2">{campaign[0]}</p>}
+        <p className="text-sm text-black mb-2 font-sans"> {description[index - 1]}</p>}
+      {campaign[0] !== undefined && <p className="text-sm text-black mb-2 font-sans">{campaign[0]}</p>}
       {image[index - 1] !== undefined && <img src={image[index - 1]} alt="Campaign" className="max-w-auto h-[200px] mb-4" />}
-      {campaign.amountCollected !== undefined && <p className="text-sm text-black mb-2">Amount collected : {'$' + (ethers.formatUnits(campaign.amountCollected.toString()))} </p>}
+      {campaign.amountCollected !== undefined && <p className="text-sm text-black mb-2 font-sans">Amount collected : {'$' + (ethers.formatUnits(campaign.amountCollected.toString()))} </p>}
 
-      {campaign.target !== undefined && <p className="text-sm text-black mb-2">Target : {'$' + (ethers.formatUnits(campaign.target.toString()))} </p>
+      {campaign.target !== undefined && <p className="text-sm text-black mb-2 font-sans">Target : {'$' + (ethers.formatUnits(campaign.target.toString()))} </p>
       }
 
-      {campaign.verifierFee !== undefined && <p className="text-sm text-black mb-2">verifierFee : {'$' + (ethers.formatUnits(campaign.verifierFee.toString()))} </p>}
-      {campaign.totalFundsRequired !== undefined && <p className="text-sm text-black mb-2">totalFundsRequired : {'$' + (ethers.formatUnits(campaign.totalFundsRequired.toString()))} </p>
+      {campaign.verifierFee !== undefined && <p className="text-sm text-black mb-2 font-sans">verifierFee : {'$' + (ethers.formatUnits(campaign.verifierFee.toString()))} </p>}
+      {campaign.totalFundsRequired !== undefined && <p className="text-sm text-black mb-2 font-sans">totalFundsRequired : {'$' + (ethers.formatUnits(campaign.totalFundsRequired.toString()))} </p>
       }
-      {campaign.deadline !== undefined && <p className="text-sm text-black mb-2">Deadline: {formatTimestamp(campaign.deadline.toString())} </p>
+      {campaign.deadline !== undefined && <p className="text-sm text-black mb-2 font-sans">Deadline: {formatTimestamp(campaign.deadline.toString())} </p>
       }
 
     </div>

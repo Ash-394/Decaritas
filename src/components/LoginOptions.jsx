@@ -20,30 +20,34 @@ const LoginOptions = () => {
   };
 
   return (
-    <div className="flex justify-center mt-8">
-      <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
-        <h1 className="text-3xl font-bold mb-8">Choose Login Option</h1>
+    <div className="bg-cover bg-center w-full h-screen flex items-center justify-center"  
+      style={{ backgroundImage: 
+      "url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
+    <div className="flex justify-center mt-8 ">
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <h1 className="text-3xl font-bold font-sans mb-8">Choose Login Option</h1>
         <div className="flex space-x-4">
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-orange-500 hover:bg-orange-300 text-black font-sans py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={() => handleOptionClick('user')}
           >
             Login as Donor
           </button>
           <button
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-customblue-50 hover:bg-customblue-100 text-black font-sans py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={() => handleOptionClick('verifier')}
           >
             Login as Verifier
           </button>
           <button
-            className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-customgrey-50 hover:bg-customshade-50 text-black font-sans py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={() => handleOptionClick('organisation')}
           >
             Login as Organisation
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
