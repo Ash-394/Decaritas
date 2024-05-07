@@ -16,7 +16,7 @@ function ProfileCard({ name = "Name", walletAddress = "Wallet Address", location
         {name !== "Name" && <p><span className="font-bold">User name :</span> {name}</p>}
         <p><span className="font-bold">Wallet Address:</span> {walletAddress}</p>
         {location !== "Location" &&<p><span className="font-bold">Location:</span> {location}</p>}
-        {balance !== null && <p><span className="font-bold">Balance:</span> $ {balance.toString()}</p>}
+        {balance !== null && <p><span className="font-bold">Total fees collected :</span> $ {balance.toString()}</p>}
 
       </div>
     </div>

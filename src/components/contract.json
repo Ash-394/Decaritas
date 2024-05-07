@@ -2,6 +2,75 @@
 {
 	"abi": [
 		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_id",
+					"type": "uint256"
+				}
+			],
+			"name": "approve",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_uniqueId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "_title",
+					"type": "string"
+				},
+				{
+					"internalType": "string",
+					"name": "_description",
+					"type": "string"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_target",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_deadline",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "_image",
+					"type": "string"
+				}
+			],
+			"name": "createCampaign",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_id",
+					"type": "uint256"
+				}
+			],
+			"name": "donateToCampaign",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
 			"inputs": [],
 			"stateMutability": "nonpayable",
 			"type": "constructor"
@@ -14,9 +83,9 @@
 					"type": "uint256"
 				}
 			],
-			"name": "approve",
+			"name": "withdrawFunds",
 			"outputs": [],
-			"stateMutability": "nonpayable",
+			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
@@ -81,49 +150,6 @@
 		{
 			"inputs": [
 				{
-					"internalType": "address",
-					"name": "_owner",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_uniqueId",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "_title",
-					"type": "string"
-				},
-				{
-					"internalType": "string",
-					"name": "_description",
-					"type": "string"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_target",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_deadline",
-					"type": "uint256"
-				},
-				{
-					"internalType": "string",
-					"name": "_image",
-					"type": "string"
-				}
-			],
-			"name": "createCampaign",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
 					"internalType": "uint256",
 					"name": "",
 					"type": "uint256"
@@ -138,19 +164,6 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "_id",
-					"type": "uint256"
-				}
-			],
-			"name": "donateToCampaign",
-			"outputs": [],
-			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
@@ -537,16 +550,16 @@
 			"type": "function"
 		},
 		{
-			"inputs": [
+			"inputs": [],
+			"name": "verifierFeeCollected",
+			"outputs": [
 				{
 					"internalType": "uint256",
-					"name": "_id",
+					"name": "",
 					"type": "uint256"
 				}
 			],
-			"name": "withdrawFunds",
-			"outputs": [],
-			"stateMutability": "payable",
+			"stateMutability": "view",
 			"type": "function"
 		}
 	]
