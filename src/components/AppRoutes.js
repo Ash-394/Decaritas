@@ -11,6 +11,9 @@ import CampaignsByDonator from './FetchCampaigns';
 import Signup from './signup';
 import Login from './login';
 import OrgLogin from './orgLogin';
+import LoginOptions from './LoginOptions';
+import VerifierLogin from './ verifierlogin';
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -25,6 +28,8 @@ const AppRoutes = () => {
       <Route path="/login" element ={<Login/>}/>
       <Route path="/signup" element ={<Signup/>}/>
       <Route path="/orglogin" element ={<OrgLogin/>}/>
+      <Route path="/verifierlogin" element ={<VerifierLogin/>}/>
+      <Route path="/loginmain" element ={<LoginOptions/>}/>
 
 
     

@@ -6,8 +6,6 @@ import { Button, TextField, Typography, Link, Container, Box } from '@mui/materi
 import UseWallet from './useWallet';
 import orgService from '../service/orgservice';
 
-
-
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().required('Required'),
@@ -21,7 +19,7 @@ const OrgLogin = () => {
 
   const handleConnectWallet = async () => {
     const account = await UseWallet();
-    setConnectedWallet(account); // Example: set the connected wallet address here
+    setConnectedWallet(account); 
   };
 
 
@@ -34,8 +32,7 @@ const OrgLogin = () => {
       }
       else{
         alert("Organisation does not exist!");
-      }
-      
+      }  
     } catch (error) {
       console.error('Error logging in:', error);
     } finally {
@@ -94,11 +91,6 @@ const OrgLogin = () => {
             </Form>
           )}
         </Formik>
-        <Box mt={2}>
-          <Link component={RouterLink} to="/signup" variant="body2">
-            Don't have an account? Sign Up
-          </Link>
-        </Box>
       </div>
     </Container>
   );

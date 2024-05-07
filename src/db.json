@@ -1,38 +1,36 @@
 {
   "users": [
     {
-      "id": "b420",
-      "email": "ashi18pulari@gmail.com",
-      "password": "AS"
+      "id": "6db2",
+      "email": "alexa@gmail.com",
+      "password": "alexa234",
+      "walletAddress": "0x9b3f5942297f724f62de8e2eff8c2430e159c62c"
     },
     {
-      "id": "7461",
-      "email": "ashi18pulari@gmail.com",
-      "password": "asd",
+      "id": "6def",
+      "email": "verifier@gmail.com",
+      "password": "verifier234",
       "walletAddress": "0x373dc81415fcb8ded4bd13bfc73219f6d9845be8"
     }
   ],
-  "organisation" : [
+  "organisation": [
     {
-        "id": "c420",
-        "orgname": "Old Paradise",
-        "email": "ashi18pulari@gmail.com",
-        "password": "asf",
-        "orgId": "234",
-        "walletAddress": "0x1a89fc3068535785d8d59ee9a2e7b526134de60f",
-        "location": "MUMBAI"
-      },
-      {
-        "id": "J420",
-        "orgname": "Helping hand",
-        "email": "ashi18pulari@gmail.com",
-        "password": "asf",
-        "orgId": "234",
-        "walletAddress": "0x373dc81415fcb8ded4bd13bfc73219f6d9845be8",
-        "location": "DELHI"
-      }
-        
-        
-      
+      "id": "c420",
+      "orgname": "Old Paradise",
+      "email": "oldparadise@gmail.com",
+      "password": "asf",
+      "orgId": "234",
+      "walletAddress": "0x1a89fc3068535785d8d59ee9a2e7b526134de60f",
+      "location": "MUMBAI"
+    },
+    {
+      "id": "J420",
+      "orgname": "Helping hand",
+      "email": "ashi18pulari@gmail.com",
+      "password": "asf",
+      "orgId": "234",
+      "walletAddress": "0x373dc81415fcb8ded4bd13bfc73219f6d9845be8",
+      "location": "DELHI"
+    }
   ]
 }

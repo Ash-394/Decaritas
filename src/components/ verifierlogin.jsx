@@ -12,7 +12,7 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required('Required')
 });
 
-const Login = () => {
+const VerifierLogin = () => {
   const navigate = useNavigate();
 
   const [connectedWallet, setConnectedWallet] = useState(null);
@@ -25,13 +25,16 @@ const Login = () => {
 
   const handleLogin = async (values, { setSubmitting }) => {
     try {
-      const user = await userService.login(values.email, values.password, connectedWallet);
-      if (user){
-        alert("User logged in successfully!");
-        navigate('/user');
-      }
-      else{
-        alert("User does not exist!");
+      const verifier = await userService.login(values.email, values.password, connectedWallet);
+      if (verifier){
+        if(connectedWallet === '0x373dc81415fcb8ded4bd13bfc73219f6d9845be8'){
+          alert("Verifier logged in successfully!");
+          navigate('/verifier');
+          return;
+        }
+        else{
+            alert("Only verifier can login");
+          }
       }
     } catch (error) {
       console.error('Error logging in:', error);
@@ -44,7 +47,7 @@ const Login = () => {
     <Container component="main" maxWidth="xs">
       <div className="container">
         <Typography component="h1" variant="h5">
-          Login
+          Verifier Login
         </Typography>
         <Formik
           initialValues={{ email: '', password: '' }}
@@ -89,14 +92,9 @@ const Login = () => {
             </Form>
           )}
         </Formik>
-        <Box mt={2}>
-          <Link component={RouterLink} to="/signup" variant="body2">
-            Don't have an account? Sign Up
-          </Link>
-        </Box>
       </div>
     </Container>
   );
 };
 
-export default Login;
+export default VerifierLogin;

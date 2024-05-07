@@ -71,7 +71,7 @@ function UserDashboard({user}) {
     } 
   };
   handleUser();
-}, [user]);
+}, [accounts]);
 
 
   const handleDonationChange = (index, value) => {
