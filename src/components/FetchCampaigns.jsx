@@ -33,19 +33,18 @@ const CampaignsByDonator = () => {
     const fetchCampaignDetails = async () => {
       try {
         if (contract) {
-          const numberOfCampaigns = await contract.numberOfCampaigns();
+          const donatedCampaign = await contract.getCampaignsByDonator(accounts);
           const titlelist = [];
           const descriptionlist = [];
-          for (let i = 1; i <= numberOfCampaigns; i++) {
-            const t = await contract.title(i);
+          donatedCampaign.forEach(async (campaign) => {
+            const _id = await contract.getCampaignIndex(campaign.owner, campaign.uniqueId);
+            const t = await contract.title(_id);
             titlelist.push(t);
-            const d = await contract.description(i);
+            const d = await contract.description(_id);
             descriptionlist.push(d);
-
-          }
+          })
           setTitle(titlelist);
           setDescription(descriptionlist);
-
         }
       } catch (error) {
         console.error('Error fetching campaign details:', error);
@@ -53,7 +52,8 @@ const CampaignsByDonator = () => {
     };
 
     fetchCampaignDetails();
-  }, [contract]);
+  }, [contract, donatedCampaigns]);
+
 
   useEffect(() => {
     const fetchDonatedCampaigns = async () => {
@@ -118,10 +118,10 @@ const CampaignsByDonator = () => {
                 {donatedCampaigns.map((campaign, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 font-sans">{title[index-1]}</div>
+                      <div className="text-sm text-gray-900 font-sans">{title[index]}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 font-sans">{description[index-1]}</div>
+                      <div className="text-sm text-gray-900 font-sans">{description[index]}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900 font-sans" >{campaign.owner}</div>
