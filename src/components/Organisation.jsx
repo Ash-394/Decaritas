@@ -104,13 +104,40 @@ const OrganizationPage = () => {
             if (contract) {
                 // Withdraw funds from the campaign
                 const _id = await contract.getCampaignIndex(owner, uniqueId);
-                if (campaigns[_id].balance.toString() === '0') {
+                if (ongoingCampaigns[ind].balance.toString() === '0') {
 
                     alert("balance zero")
                     return;
                 }
-                if (campaigns[_id].balance < campaigns[_id].verifierFee) {
-                    console.log(campaigns[_id].balance.toString())
+                if (ongoingCampaigns[ind].balance < ongoingCampaigns[ind].verifierFee) {
+                    console.log(ongoingCampaigns[ind].balance.toString())
+                    console.log('Fund collected is very less - should be greater than verifier feee');
+                    alert("insuffient balance")
+                    return;
+                }
+                await contract.withdrawFunds(_id);
+                console.log('Funds withdrawn from campaign', _id);
+            } else {
+                console.error('contract not available');
+            }
+        } catch (error) {
+            console.error('Error withdrawing funds:', error);
+
+        }
+    };
+
+    const withdrawFundsClosed = async (owner, uniqueId, ind) => {
+        try {
+            if (contract) {
+                // Withdraw funds from the campaign
+                const _id = await contract.getCampaignIndex(owner, uniqueId);
+                if (closedCampaigns[ind].balance.toString() === '0') {
+
+                    alert("balance zero")
+                    return;
+                }
+                if (closedCampaigns[ind].balance < closedCampaigns[ind].verifierFee) {
+                    console.log(closedCampaigns[ind].balance.toString())
                     console.log('Fund collected is very less - should be greater than verifier feee');
                     alert("insuffient balance")
                     return;
@@ -165,7 +192,7 @@ const OrganizationPage = () => {
                                         <div> <CampaignCard campaign={campaign}></CampaignCard> </div>
 
                                         <div> <h1>balance : $ {ethers.formatUnits(campaign.balance.toString())}</h1>
-                                            <button className='text-white text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFunds(campaign[0], campaign.uniqueId, index)}>Withdraw Funds</button>
+                                            <button className='text-white text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={() => withdrawFundsClosed(campaign[0], campaign.uniqueId, index)}>Withdraw Funds</button>
                                         </div>
                                     </div>}
                             </div>
