@@ -104,13 +104,13 @@ const OrganizationPage = () => {
             if (contract) {
                 // Withdraw funds from the campaign
                 const _id = await contract.getCampaignIndex(owner, uniqueId);
-                if (ongoingCampaigns[ind].balance.toString() === '0') {
+                if (campaigns[_id].balance.toString() === '0') {
 
                     alert("balance zero")
                     return;
                 }
-                if (ongoingCampaigns[ind].balance < ongoingCampaigns[ind].verifierFee) {
-                    console.log(ongoingCampaigns[ind].balance.toString())
+                if (campaigns[_id].balance < campaigns[_id].verifierFee) {
+                    console.log(campaigns[_id].balance.toString())
                     console.log('Fund collected is very less - should be greater than verifier feee');
                     alert("insuffient balance")
                     return;
