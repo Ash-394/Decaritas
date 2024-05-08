@@ -118,10 +118,10 @@ const CampaignsByDonator = () => {
                 {donatedCampaigns.map((campaign, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 font-sans">{title[index]}</div>
+                      <div className="text-sm text-gray-900 font-sans">{title[index-1]}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 font-sans">{description[index]}</div>
+                      <div className="text-sm text-gray-900 font-sans">{description[index-1]}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900 font-sans" >{campaign.owner}</div>
