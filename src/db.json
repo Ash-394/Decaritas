@@ -11,6 +11,12 @@
       "email": "verifier@gmail.com",
       "password": "verifier234",
       "walletAddress": "0x373dc81415fcb8ded4bd13bfc73219f6d9845be8"
+    },
+    {
+      "id": "bf73",
+      "email": "user@gmail.com",
+      "password": "user234",
+      "walletAddress": "0x2cb96cdb27e6604c8dadb0f22fa3f3b8f39e1182"
     }
   ],
   "organisation": [
